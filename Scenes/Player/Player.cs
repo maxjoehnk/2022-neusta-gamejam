@@ -13,6 +13,7 @@ public partial class Player : Node3D
 
     private Node3D Cone => GetNode<Node3D>("Cone");
     private Node3D EScooter => GetNode<Node3D>("EScooter");
+    private Node3D Hat => GetNode<Node3D>("Hat");
 
     public int PlayerNr { get; set; }
     public bool Active { get; set; }
@@ -32,6 +33,10 @@ public partial class Player : Node3D
         if (Character == Character.EScooter)
         {
             this.EScooter.Show();
+        }
+        if (Character == Character.Hat)
+        {
+            this.Hat.Show();
         }
     }
 

@@ -4,6 +4,7 @@ public class PlayerFactory
 {
     private static readonly Character[] Characters = {
         Character.EScooter,
+        Character.Hat,
         Character.Cone
     };
 
