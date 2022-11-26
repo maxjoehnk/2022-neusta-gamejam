@@ -7,4 +7,10 @@ public interface ICardEffect
     public Doors ModifyDoors(Doors doors);
 
     public void OnEnter(Player player, Map map);
+
+    public void Ready(Card card)
+    {
+    }
+
+    public void Process(Card card, double delta) {}
 }

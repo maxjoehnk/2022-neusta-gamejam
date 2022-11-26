@@ -29,6 +29,19 @@ public partial class Card : Node3D
 		set => this.CardEffectMaterial.NextPass = value;
 	}
 
+	public override void _Ready()
+	{
+		this.ApplyTypeTexture();
+		this.ApplyDecalTexture();
+		this.ApplyEffectTexture();
+		this.CardEffect?.Ready(this);
+	}
+
+	public override void _Process(double delta)
+	{
+		this.CardEffect?.Process(this, delta);
+	}
+
 	/// <summary>
 	/// Returns whether a player can leave this card into the given <paramref name="side"/>.
 	/// </summary>
@@ -52,20 +65,35 @@ public partial class Card : Node3D
 	public void SetCardType(ICardType cardType)
 	{
 		this.CardType = cardType;
-		StandardMaterial3D typeMaterial = (StandardMaterial3D)this.CardTypeMaterial.Duplicate(true);
-		typeMaterial.AlbedoTexture = cardType.Texture;
-		this.CardTypeMaterial = typeMaterial;
-		
-		StandardMaterial3D decalMaterial = (StandardMaterial3D)this.CardDecalMaterial.Duplicate(true);
-		decalMaterial.AlbedoTexture = cardType.DecalTexture;
-		this.CardDecalMaterial = decalMaterial;
+		this.ApplyTypeTexture();
+		this.ApplyDecalTexture();
 	}
 
 	public void SetCardEffect(ICardEffect cardEffect)
 	{
 		this.CardEffect = cardEffect;
+		ApplyEffectTexture();
+	}
+
+	private void ApplyEffectTexture()
+	{
 		StandardMaterial3D material = (StandardMaterial3D)this.CardEffectMaterial.Duplicate(true);
-		material.AlbedoTexture = cardEffect?.Texture;
+		material.AlbedoTexture = this.CardEffect?.Texture;
 		this.CardEffectMaterial = material;
 	}
+
+	private void ApplyDecalTexture()
+	{
+		StandardMaterial3D material = (StandardMaterial3D)this.CardDecalMaterial.Duplicate(true);
+		material.AlbedoTexture = this.CardType?.DecalTexture;
+		this.CardDecalMaterial = material;
+	}
+
+	private void ApplyTypeTexture()
+	{
+		StandardMaterial3D material = (StandardMaterial3D)this.CardTypeMaterial.Duplicate(true);
+		material.AlbedoTexture = this.CardType?.Texture;
+		this.CardTypeMaterial = material;
+	}
+
 }

@@ -18,6 +18,8 @@ public partial class Player : Node3D
     public int PlayerNr { get; set; }
     public bool Active { get; set; }
 
+    public int Coins { get; set; }
+
     public Position MapPosition { get; set; }
 
     public Character Character { get; set; }

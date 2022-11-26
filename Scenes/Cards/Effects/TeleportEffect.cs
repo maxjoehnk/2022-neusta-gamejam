@@ -4,7 +4,7 @@ using Godot;
 
 public class TeleportEffect : ICardEffect
 {
-	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardModifiers/portal.jpg");
+	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardEffects/portal.jpg");
     
     public Doors ModifyDoors(Doors doors)
     {

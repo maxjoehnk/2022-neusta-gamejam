@@ -1,25 +1,31 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7lqpgxhd5nab"]
+[gd_scene load_steps=14 format=3 uid="uid://dp7y273iueep8"]
 
 [ext_resource type="Script" path="res://Scenes/Cards/Card.cs" id="1_aaebj"]
 [ext_resource type="Texture2D" uid="uid://bwwtfg4msnhoc" path="res://Assets/Textures/CardTypes/Corner.jpg" id="2_hhm4t"]
 [ext_resource type="ArrayMesh" uid="uid://dxjuvdny7w8jp" path="res://Assets/Models/stone.obj" id="2_xqcim"]
 [ext_resource type="Texture2D" uid="uid://w0lx8cd4xikg" path="res://Assets/Models/stone.png" id="3_3dl5i"]
+[ext_resource type="Texture2D" uid="uid://be5ei6o823ul8" path="res://Assets/Textures/CardEffects/portal.jpg" id="3_jrdec"]
+[ext_resource type="Texture2D" uid="uid://cqg5q2ixb4r87" path="res://Assets/Textures/CardDecals/MoosCorner.jpg" id="4_xk62f"]
+[ext_resource type="PackedScene" uid="uid://dhodky8dcfb6k" path="res://Scenes/Cards/Effects/Coin.tscn" id="7_iqqgk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4rwyc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rlt6r"]
 size = Vector3(10, 1, 10)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aj1n0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6pdrq"]
 blend_mode = 3
+albedo_texture = ExtResource("4_xk62f")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5j4q8"]
-next_pass = SubResource("StandardMaterial3D_aj1n0")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxqvi"]
+next_pass = SubResource("StandardMaterial3D_6pdrq")
 blend_mode = 3
+albedo_texture = ExtResource("3_jrdec")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30r0d"]
-next_pass = SubResource("StandardMaterial3D_5j4q8")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mp6vd"]
+next_pass = SubResource("StandardMaterial3D_kxqvi")
 blend_mode = 3
+albedo_texture = ExtResource("2_hhm4t")
 normal_texture = ExtResource("2_hhm4t")
 heightmap_scale = 0.294
 heightmap_texture = ExtResource("2_hhm4t")
@@ -31,21 +37,18 @@ albedo_texture = ExtResource("3_3dl5i")
 
 [node name="Card" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-collision_layer = 0
+collision_layer = 2
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_4rwyc")
 script = ExtResource("1_aaebj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-visible = false
 shape = SubResource("BoxShape3D_rlt6r")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-material_overlay = SubResource("StandardMaterial3D_30r0d")
+material_overlay = SubResource("StandardMaterial3D_mp6vd")
 mesh = ExtResource("2_xqcim")
 surface_material_override/0 = SubResource("StandardMaterial3D_1jrwe")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="DebugLabels" type="Node3D" parent="."]
 visible = false
@@ -71,3 +74,7 @@ transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.7422
 text = "Bottom
 "
 font_size = 300
+
+[node name="Coin" parent="." instance=ExtResource("7_iqqgk")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.01853, 0)
+visible = false
