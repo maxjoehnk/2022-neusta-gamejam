@@ -4,6 +4,8 @@ public class CrossingCard : ICardType
 {
 	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardTypes/Crossing.jpg");
 	
+	public Texture2D DecalTexture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardDecals/MoosCrossing.jpg");
+	
 	public Doors doors => new Doors
 	{
 		Left = true,

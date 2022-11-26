@@ -24,12 +24,20 @@ public partial class PlacingCard : Node3D
 	public void RotateRight()
 	{
 		this.Orientation -= 1;
+		while (this.Orientation < 0)
+		{
+			this.Orientation += 4;
+		}
 		this.UpdateRotation();
 	}
 
 	public void RotateLeft()
 	{
 		this.Orientation += 1;
+		while (this.Orientation > 3)
+		{
+			this.Orientation -= 4;
+		}
 		this.UpdateRotation();
 	}
 

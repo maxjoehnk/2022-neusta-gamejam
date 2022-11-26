@@ -4,4 +4,4 @@
 
 [node name="PlacingCard" type="Node3D"]
 script = ExtResource("1_668ay")
-rayLength = 74
+rayLength = 83

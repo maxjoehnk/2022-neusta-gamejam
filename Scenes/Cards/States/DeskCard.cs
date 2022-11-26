@@ -6,7 +6,7 @@ public partial class DeskCard : Node3D
 	
 	private bool despawn;
 	
-	private Card card;
+	public Card Card { get; private set; }
 
 	private AudioStreamPlayer3D EnterSound => GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D");
 
@@ -64,20 +64,17 @@ public partial class DeskCard : Node3D
 	public void SetCard(Card card)
 	{
 		this.AddChild(card);
-		this.card = card;
+		this.Card = card;
 		this.EditorDescription = card.GetType().Name;
 	}
 
-	public bool CanLeaveTo(Direction direction)
+	public bool HasDoor(Side side)
 	{
-		Direction actualDirection = direction.Rotate(this.Orientation);
-		return this.card.CanLeaveTo(actualDirection);
-	}
+		Side actualSide = side.Rotate(this.Orientation);
+		
+		GD.Print($"HasDoor {side} * {Orientation} => {actualSide}");
 
-	public bool CanEnterFrom(Direction direction)
-	{
-		Direction actualDirection = direction.Rotate(this.Orientation);
-		return this.card.CanEnterFrom(actualDirection);
+		return this.Card.HasDoor(actualSide);
 	}
 
 	public void Despawn()

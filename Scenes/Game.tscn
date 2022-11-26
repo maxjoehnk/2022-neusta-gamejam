@@ -29,7 +29,7 @@ current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.434532, 0.303181, -0.848094, 0.339345, 0.817133, 0.465981, 0.834282, -0.49028, 0.252188, -20.0653, 29.0836, 0)
-light_energy = 1.5
+light_energy = 2.0
 shadow_enabled = true
 
 [node name="Cards" type="Node3D" parent="."]
@@ -57,3 +57,4 @@ shape = SubResource("WorldBoundaryShape3D_5h7bp")
 
 [node name="StoneMoving" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource("5_l5cc6")
+volume_db = 11.917

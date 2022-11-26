@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7lqpgxhd5nab"]
+[gd_scene load_steps=11 format=3 uid="uid://b7lqpgxhd5nab"]
 
 [ext_resource type="Script" path="res://Scenes/Cards/Card.cs" id="1_aaebj"]
 [ext_resource type="Texture2D" uid="uid://bwwtfg4msnhoc" path="res://Assets/Textures/CardTypes/Corner.jpg" id="2_hhm4t"]
@@ -10,7 +10,11 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_rlt6r"]
 size = Vector3(10, 1, 10)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aj1n0"]
+blend_mode = 3
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5j4q8"]
+next_pass = SubResource("StandardMaterial3D_aj1n0")
 blend_mode = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30r0d"]
@@ -42,3 +46,28 @@ mesh = ExtResource("2_xqcim")
 surface_material_override/0 = SubResource("StandardMaterial3D_1jrwe")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="DebugLabels" type="Node3D" parent="."]
+visible = false
+
+[node name="Top" type="Label3D" parent="DebugLabels"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.594197, -4.20794)
+text = "Top
+"
+font_size = 300
+
+[node name="Left" type="Label3D" parent="DebugLabels"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -4.07269, 0.594197, -0.035104)
+text = "Left"
+font_size = 300
+
+[node name="Right" type="Label3D" parent="DebugLabels"]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 4.13945, 0.594197, -0.0351038)
+text = "Right"
+font_size = 300
+
+[node name="Bottom" type="Label3D" parent="DebugLabels"]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 0.594197, 4.43818)
+text = "Bottom
+"
+font_size = 300

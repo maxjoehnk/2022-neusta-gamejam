@@ -206,8 +206,9 @@ public partial class Game : Node3D
 			return;
 		}
 
-		this.ActivePlayer.MapPosition = position;
-		this.ActivePlayer.UpdatePosition();
+		this.ActivePlayer.MoveTo(position);
+		Card card = this.map.GetCard(position);
+		card.OnEnter(this.ActivePlayer, this.map);
 	}
 
 	private void NextTurn()

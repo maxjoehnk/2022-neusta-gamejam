@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3 uid="uid://c5trjhn880tio"]
 
 [ext_resource type="ArrayMesh" uid="uid://c0o7uaol647hj" path="res://Assets/Models/Character.obj" id="1_p8a4x"]
 [ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="2_vdnuq"]
+[ext_resource type="ArrayMesh" uid="uid://drgiuuy3ygdov" path="res://Assets/Models/escooter.obj" id="3_ft4oy"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6jpp5"]
 frequency = 1.0
@@ -18,8 +19,18 @@ normal_enabled = true
 normal_texture = SubResource("NoiseTexture2D_b2o4s")
 ao_enabled = true
 
-[node name="Player" type="MeshInstance3D"]
+[node name="Player" type="Node3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("2_vdnuq")
+jumpAnimationDuration = 0.1
+
+[node name="EScooter" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25167, 0)
+visible = false
+mesh = ExtResource("3_ft4oy")
+skeleton = NodePath("../..")
+
+[node name="Cone" type="MeshInstance3D" parent="."]
+visible = false
 material_override = SubResource("StandardMaterial3D_tr202")
 mesh = ExtResource("1_p8a4x")
-script = ExtResource("2_vdnuq")

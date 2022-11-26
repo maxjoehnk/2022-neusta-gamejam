@@ -3,6 +3,7 @@ using Godot;
 public class StraightCard : ICardType
 {
 	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardTypes/Straight.jpg");
+	public Texture2D DecalTexture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardDecals/MoosStraight.jpg");
 	
 	public Doors doors => new Doors
 	{

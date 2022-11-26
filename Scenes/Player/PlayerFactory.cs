@@ -2,10 +2,9 @@ using Godot;
 
 public class PlayerFactory
 {
-    private static readonly Color[] Colors = {
-        new Color { r = 1, g = 0, b = 0, },
-        new Color { r = 0, g = 1, b = 0, },
-        new Color { r = 0, g = 0, b = 1, },
+    private static readonly Character[] Characters = {
+        Character.EScooter,
+        Character.Cone
     };
 
     private readonly PackedScene playerScene;
@@ -19,7 +18,7 @@ public class PlayerFactory
     {
         Player player = this.playerScene.Instantiate<Player>();
         player.MapPosition = new Position { X = 0, Y = i };
-        player.Color = Colors[i];
+        player.Character = Characters[i];
         player.Name = $"Player {i}";
 
         return player;

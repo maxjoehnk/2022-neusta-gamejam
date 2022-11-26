@@ -9,12 +9,17 @@ public class CardFactory
 	private readonly PackedScene deskCardScene = ResourceLoader.Load<PackedScene>("res://Scenes/Cards/States/DeskCard.tscn");
 	private readonly PackedScene placingCardScene = ResourceLoader.Load<PackedScene>("res://Scenes/Cards/States/PlacingCard.tscn");
 
-	private readonly List<ICardTypeFactory> cardFactories = new List<ICardTypeFactory>
+	private readonly List<ICardTypeFactory> cardTypeFactories = new List<ICardTypeFactory>
 	{
 		new CornerCardFactory(),
 		new StraightCardFactory(),
 		new TCrossingCardFactory(),
 		new CrossingCardFactory(),
+	};
+	
+	private readonly List<ICardEffectFactory> cardEffectFactories = new List<ICardEffectFactory>
+	{
+		new TeleportEffectFactory(),
 	};
 
 	private readonly Random random = new Random();
@@ -22,9 +27,15 @@ public class CardFactory
 	public Card CreateCard()
 	{
 		Card card = this.cardScene.Instantiate<Card>();
-		int factoryIndex = this.random.Next(0, this.cardFactories.Count);
-		ICardType cardType = this.cardFactories[factoryIndex].BuildCardType();
+		ICardTypeFactory cardTypeFactory = WeightedRandomizer.Next(this.cardTypeFactories);
+		ICardType cardType = cardTypeFactory.BuildCardType();
 		card.SetCardType(cardType);
+
+		ICardEffectFactory cardEffectFactory = WeightedRandomizer.Next(this.cardEffectFactories, 100);
+		if (cardEffectFactory != null)
+		{
+			card.SetCardEffect(cardEffectFactory.BuildCardEffect());
+		}
 
 		return card;
 	}
@@ -39,12 +50,13 @@ public class CardFactory
 		return deskCard;
 	}
 
-	public DeskCard FromHand(PlacingCard card)
+	public DeskCard FromHand(PlacingCard placingCard)
 	{
-		Card duplicate = (Card)card.Card.Duplicate();
-		duplicate.SetCardType(card.Card.CardType);
-		DeskCard deskCard = this.CreateDeskCard(card.MapPosition.X, card.MapPosition.Y, duplicate);
-		deskCard.Orientation = card.Orientation;
+		Card card = (Card)placingCard.Card.Duplicate();
+		card.SetCardType(placingCard.Card.CardType);
+		card.SetCardEffect(placingCard.Card.CardEffect);
+		DeskCard deskCard = this.CreateDeskCard(placingCard.MapPosition.X, placingCard.MapPosition.Y, card);
+		deskCard.Orientation = placingCard.Orientation;
 
 		return deskCard;
 	}

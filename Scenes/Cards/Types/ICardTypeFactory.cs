@@ -1,6 +1,4 @@
-public interface ICardTypeFactory
+public interface ICardTypeFactory : IHaveProbability
 {
-    public int Probability { get; }
-
     public ICardType BuildCardType();
 }

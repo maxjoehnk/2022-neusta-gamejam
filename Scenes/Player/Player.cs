@@ -1,58 +1,94 @@
 using Godot;
 
-public partial class Player : MeshInstance3D
+public partial class Player : Node3D
 {
-	[Export] private double movementAnimationDuration = 0.2;
-	
-	private StandardMaterial3D Material => (StandardMaterial3D)this.MaterialOverride;
+    private Tween tween;
 
-	public int PlayerNr { get; set; }
-	public bool Active { get; set; }
+    [Export] private double rotationAnimationDuration = 0.2;
+    [Export] private double movementAnimationDuration = 0.2;
+    [Export] private double jumpAnimationDuration = 0.2;
+    [Export] private double jumpToAnimationDelay = 0.5;
 
-	public Position MapPosition { get; set; }
+    // private StandardMaterial3D Material => (StandardMaterial3D)this.MaterialOverride;
 
-	public Color Color { get; set; }
+    private Node3D Cone => GetNode<Node3D>("Cone");
+    private Node3D EScooter => GetNode<Node3D>("EScooter");
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		this.MaterialOverride = (Material)this.Material.Duplicate();
-		SetPosition();
-	}
+    public int PlayerNr { get; set; }
+    public bool Active { get; set; }
 
-	private void SetPosition()
-	{
-		Transform3D transform3D = this.Transform;
-		transform3D.origin.x = this.MapPosition.X * Constants.CardSize;
-		transform3D.origin.z = this.MapPosition.Y * Constants.CardSize;
-		this.Transform = transform3D;
-	}
+    public Position MapPosition { get; set; }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		UpdateColor();
-	}
+    public Character Character { get; set; }
 
-	private void UpdateColor()
-	{
-		this.Material.AlbedoColor = this.Color;
-	}
+    public override void _Ready()
+    {
+        SetPosition();
+        if (Character == Character.Cone)
+        {
+            this.Cone.Show();
+        }
 
-	public void UpdatePosition()
-	{
-		Tween tween = this.CreateTween().SetTrans(Tween.TransitionType.Linear);
-		Vector3 translation = new Vector3
-		{
-			x = this.MapPosition.X * Constants.CardSize,
-			z = this.MapPosition.Y * Constants.CardSize,
-			y = 0,
-		};
-		tween.TweenProperty(this, "position", translation, movementAnimationDuration).FromCurrent();
-	}
+        if (Character == Character.EScooter)
+        {
+            this.EScooter.Show();
+        }
+    }
 
-	public override string ToString()
-	{
-		return $"Player {{ Name = {Name}, Position = {MapPosition}, Active = {Active} }}";
-	}
+    public void MoveTo(Position position)
+    {
+        Direction? direction = this.MapPosition.GetDirection(position);
+        this.MapPosition = position;
+        this.tween?.Kill();
+        this.tween = this.CreateTween().SetTrans(Tween.TransitionType.Linear);
+        if (direction != null)
+        {
+            Vector3 rotation = ((Direction)direction).ToRotation();
+            tween.TweenProperty(this, "rotation", rotation, rotationAnimationDuration);
+        }
+
+        Vector3 translation = MapToGlobalPosition();
+        this.tween.TweenProperty(this, "position", translation, movementAnimationDuration);
+    }
+
+    public void JumpTo(Position position)
+    {
+        this.MapPosition = position;
+        Vector3 translation = MapToGlobalPosition();
+        this.tween.TweenProperty(this, "position", translation, jumpAnimationDuration).SetDelay(this.jumpToAnimationDelay);
+    }
+
+    private void SetPosition()
+    {
+        Vector3 translation = new Vector3
+        {
+            x = this.MapPosition.X * Constants.CardSize,
+            z = this.MapPosition.Y * Constants.CardSize,
+            y = 0,
+        };
+        this.Position = translation;
+    }
+
+    private PropertyTweener AnimateMovement(Tween tween)
+    {
+        Vector3 translation = MapToGlobalPosition();
+
+        return tween.TweenProperty(this, "position", translation, movementAnimationDuration);
+    }
+
+    private Vector3 MapToGlobalPosition()
+    {
+        Vector3 translation = new Vector3
+        {
+            x = this.MapPosition.X * Constants.CardSize,
+            z = this.MapPosition.Y * Constants.CardSize,
+            y = 0,
+        };
+        return translation;
+    }
+
+    public override string ToString()
+    {
+        return $"Player {{ Name = {Name}, Position = {MapPosition}, Active = {Active} }}";
+    }
 }

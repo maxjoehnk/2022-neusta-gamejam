@@ -10,6 +10,8 @@ public class Map
 	private int maxY = 0;
 	private List<List<DeskCard>> cards = new List<List<DeskCard>>();
 
+	public IEnumerable<DeskCard> Cards => cards.SelectMany(row => row);
+
 	public void SetCards(List<DeskCard> cardList)
 	{
 		maxX = cardList.Max(card => card.MapPosition.X);
@@ -41,9 +43,14 @@ public class Map
 		{
 			return false;
 		}
+
+		Side enter = ((Direction)direction).Enter();
+		bool canEnterFrom = this.cards[to.X][to.Y].HasDoor(enter);
+		Side leave = ((Direction)direction).Leave();
+		bool canLeaveTo = this.cards[from.X][from.Y].HasDoor(leave);
+		GD.Print($"{direction}\n {enter} {cards[to.X][to.Y].Card.CardType} {canEnterFrom}\n {leave} {cards[from.X][from.Y].Card.CardType} {canLeaveTo}");
 		
-		return cards[to.X][to.Y].CanEnterFrom((Direction)direction) &&
-			   cards[from.X][from.Y].CanLeaveTo((Direction)direction);
+		return canEnterFrom && canLeaveTo;
 	}
 
 	public void PushCard(PlacingCard placingCard, DeskCard deskCard)
@@ -133,5 +140,10 @@ public class Map
 			X = x,
 			Y = y,
 		};
+	}
+
+	public Card GetCard(Position position)
+	{
+		return this.cards[position.X][position.Y].Card;
 	}
 }
