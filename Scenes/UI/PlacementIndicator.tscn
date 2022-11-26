@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cipoifnk18404"]
+
+[ext_resource type="ArrayMesh" uid="uid://q6e0cn73vgo7" path="res://Assets/PlacementIndicator.obj" id="2_x3umf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3x5hr"]
+albedo_color = Color(1, 0.0431373, 0.231373, 1)
+
+[node name="PlacementIndicator" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_3x5hr")
+cast_shadow = 0
+mesh = ExtResource("2_x3umf")

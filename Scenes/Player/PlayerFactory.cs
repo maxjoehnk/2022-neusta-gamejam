@@ -12,7 +12,7 @@ public class PlayerFactory
 
     public PlayerFactory()
     {
-        this.playerScene = ResourceLoader.Load<PackedScene>("res://Scenes/Player.tscn");
+        this.playerScene = ResourceLoader.Load<PackedScene>("res://Scenes/Player/Player.tscn");
     }
 
     public Player CreatePlayer(int i)

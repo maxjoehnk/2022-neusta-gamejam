@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://q6e0cn73vgo7"
+path="res://.godot/imported/PlacementIndicator.obj-bcf598729d504b74c986d656f5d951bd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/PlacementIndicator.obj-bcf598729d504b74c986d656f5d951bd.mesh"]
+
+source_file="res://Assets/PlacementIndicator.obj"
+dest_files=["res://.godot/imported/PlacementIndicator.obj-bcf598729d504b74c986d656f5d951bd.mesh", "res://.godot/imported/PlacementIndicator.obj-bcf598729d504b74c986d656f5d951bd.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(5, 5, 5)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=false

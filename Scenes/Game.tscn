@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dulgj2e4w0vrv"]
+[gd_scene load_steps=8 format=3 uid="uid://vtxl88bkety4"]
 
 [ext_resource type="Texture2D" uid="uid://idqt6n8hl6rt" path="res://Assets/wood-dark-building-129733.jpg" id="1_1pbp8"]
 [ext_resource type="Script" path="res://Scenes/Game.cs" id="1_tamdf"]
 [ext_resource type="PackedScene" uid="uid://ba33cdifl6o1x" path="res://Scenes/UI/UI.tscn" id="3_ri8lw"]
+[ext_resource type="PackedScene" uid="uid://cipoifnk18404" path="res://Scenes/UI/PlacementIndicator.tscn" id="4_fyap5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0k0ol"]
 size = Vector2(400, 400)
@@ -16,18 +17,14 @@ heightmap_texture = ExtResource("1_1pbp8")
 heightmap_flip_texture = true
 grow_amount = 2.296
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_5h7bp"]
+
 [node name="Game" type="Node3D"]
 script = ExtResource("1_tamdf")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 9.55343e-16, -3.09086e-08, 3.09086e-08, -3.09086e-08, 1, 0, -1, -3.09086e-08, 54.9314, 74.5057, 47.7222)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 54.9314, 84.0448, 45.8907)
 current = true
-
-[node name="Plane" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-mesh = SubResource("PlaneMesh_0k0ol")
-surface_material_override/0 = SubResource("StandardMaterial3D_3soc2")
-metadata/_edit_lock_ = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.434532, 0.303181, -0.848094, 0.339345, 0.817134, 0.46598, 0.834282, -0.49028, 0.252188, -20.0653, 29.0836, 0)
@@ -38,3 +35,18 @@ shadow_enabled = true
 [node name="Players" type="Node3D" parent="."]
 
 [node name="UI" parent="." instance=ExtResource("3_ri8lw")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_mask = 3
+
+[node name="Plane" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_0k0ol")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_3soc2")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_5h7bp")
+
+[node name="PlacementIndicator" parent="." instance=ExtResource("4_fyap5")]

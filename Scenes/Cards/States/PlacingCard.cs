@@ -1,17 +1,19 @@
 using Godot;
 
-public partial class HandCard : Node3D
+public partial class PlacingCard : Node3D
 {
 	[Export] private int rayLength = 40;
 	[Export] private double rotationAnimationDuration = 0.1;
 
-	private Card card;
+	public int Orientation { get; private set; }
+	
+	public Position MapPosition { get; set; }
 
-	private int Orientation { get; set; }
+	public Card Card { get; private set; }
 
-	public HandCard()
+	public PlacingCard()
 	{
-		this.Name = "HandCard";
+		this.Name = "PlacingCard";
 	}
 
 	public void FollowMouse(Camera3D camera, InputEventMouseMotion inputEvent)
@@ -42,6 +44,6 @@ public partial class HandCard : Node3D
 	public void SetCard(Card card)
 	{
 		this.AddChild(card);
-		this.card = card;
+		this.Card = card;
 	}
 }

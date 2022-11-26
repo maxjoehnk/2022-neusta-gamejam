@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmym637xle5ne"]
+
+[ext_resource type="Script" path="res://Scenes/Cards/States/PlacingCard.cs" id="1_668ay"]
+
+[node name="PlacingCard" type="Node3D"]
+script = ExtResource("1_668ay")
+rayLength = 74

@@ -1,3 +1,5 @@
+using System;
+
 using Godot;
 using System.Collections.Generic;
 
@@ -13,6 +15,7 @@ public partial class Game : Node3D
 	private Node3D PlayersRoot => GetNode<Node3D>("Players");
 	private UI UiRoot => GetNode<UI>("UI");
 	private Camera3D Camera => GetNode<Camera3D>("Camera");
+	private Node3D PlacementIndicator => GetNode<Node3D>("PlacementIndicator");
 	
 	private CardFactory cardFactory;
 	private PlayerFactory playerFactory;
@@ -24,7 +27,7 @@ public partial class Game : Node3D
 
 	private int turn;
 
-	private HandCard handCard;
+	private PlacingCard placingCard;
 	
 	public override void _Ready()
 	{
@@ -46,20 +49,34 @@ public partial class Game : Node3D
 		}
 
 		this.RotateCard();
+		this.PlaceCard();
 		this.PlayerMovement();
 		this.UpdateActivePlayer();
+	}
+
+	private void PlaceCard()
+	{
+		if (Input.IsActionJustPressed("place"))
+		{
+			DeskCard deskCard = this.cardFactory.FromHand(this.placingCard);
+			this.CardsRoot.AddChild(deskCard);
+			this.map.PushCard(this.placingCard, deskCard);
+			this.placingCard.QueueFree();
+			this.placingCard = null;
+			this.PlacementIndicator.Hide();
+		}
 	}
 
 	private void RotateCard()
 	{
 		if (Input.IsActionJustPressed("rotate_right") && !Input.IsActionJustPressed("rotate_left"))
 		{
-			this.handCard?.RotateRight();
+			this.placingCard?.RotateRight();
 		}
 
 		if (Input.IsActionJustPressed("rotate_left"))
 		{
-			this.handCard?.RotateLeft();
+			this.placingCard?.RotateLeft();
 		}
 	}
 
@@ -67,7 +84,7 @@ public partial class Game : Node3D
 	{
 		if (@event is InputEventMouseMotion motion)
 		{
-			this.handCard?.FollowMouse(this.Camera, motion);
+			this.placingCard?.FollowMouse(this.Camera, motion);
 			Vector3 from = this.Camera.ProjectRayOrigin(motion.GlobalPosition);
 			Vector3 to = from + Camera.ProjectRayNormal(motion.GlobalPosition) * RayLength;
 
@@ -78,17 +95,31 @@ public partial class Game : Node3D
 			});
 			if (intersectRay.ContainsKey("collider"))
 			{
-				// Card card = (Card)intersectRay["collider"];
-				// card.Hovering = true;
+				Vector3 position = (Vector3)intersectRay["position"];
+				int x = (int)Math.Round(position.x / Constants.CardSize);
+				int y = (int)Math.Round(position.z / Constants.CardSize);
+				Position mapPosition = new Position(x, y);
+				Position boundaryPosition = this.map.OutsideBoundaries(mapPosition);
+				PlacingCard card = this.placingCard;
+				if (card != null)
+				{
+					card.MapPosition = boundaryPosition;
+					this.PlacementIndicator.Position = new Vector3(boundaryPosition.X, 0, boundaryPosition.Y) * Constants.CardSize;
+					this.PlacementIndicator.Visible = true;
+				}
+				else
+				{
+					this.PlacementIndicator.Visible = false;
+				}
 			}
 		}
 	}
 
 	private void Reset()
 	{
-		if (this.handCard != null)
+		if (this.placingCard != null)
 		{
-			this.RemoveChild(this.handCard);
+			this.RemoveChild(this.placingCard);
 		}
 		this.turn = 0;
 		foreach (Node child in this.CardsRoot.GetChildren())
@@ -102,9 +133,15 @@ public partial class Game : Node3D
 		this.players.Clear();
 		this.FillCards();
 		this.FillPlayers();
+		DrawCard();
+	}
+
+	private void DrawCard()
+	{
 		Card card = this.cardFactory.CreateCard();
-		this.handCard = this.cardFactory.CreateHandCard(card);
-		this.AddChild(this.handCard);
+		this.placingCard = this.cardFactory.CreatePlacingCard(card);
+		this.AddChild(this.placingCard);
+		this.PlacementIndicator.Show();
 	}
 
 	private void FillPlayers()
@@ -177,6 +214,7 @@ public partial class Game : Node3D
 		{
 			this.turn = 0;
 		}
+		this.DrawCard();
 	}
 
 	private void UpdateActivePlayer()

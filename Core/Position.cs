@@ -4,6 +4,16 @@ public record Position
 
 	public int Y { get; set; }
 
+	public Position()
+	{
+	}
+
+	public Position(int x, int y)
+	{
+		this.X = x;
+		this.Y = y;
+	}
+
 	public Direction? GetDirection(Position to)
 	{
 		int x = this.X - to.X;
