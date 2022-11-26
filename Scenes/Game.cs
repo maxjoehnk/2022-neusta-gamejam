@@ -1,4 +1,4 @@
-using System;
+	using System;
 
 using Godot;
 using System.Collections.Generic;
@@ -16,6 +16,7 @@ public partial class Game : Node3D
 	private UI UiRoot => GetNode<UI>("UI");
 	private Camera3D Camera => GetNode<Camera3D>("Camera");
 	private Node3D PlacementIndicator => GetNode<Node3D>("PlacementIndicator");
+	private AudioStreamPlayer StoneMovingSound => GetNode<AudioStreamPlayer>("Sounds/StoneMoving");
 	
 	private CardFactory cardFactory;
 	private PlayerFactory playerFactory;
@@ -64,6 +65,8 @@ public partial class Game : Node3D
 			this.placingCard.QueueFree();
 			this.placingCard = null;
 			this.PlacementIndicator.Hide();
+			deskCard.PlayEnterSound();
+			this.StoneMovingSound.Play();
 		}
 	}
 

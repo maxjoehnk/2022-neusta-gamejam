@@ -1,26 +1,29 @@
-[gd_scene load_steps=9 format=3 uid="uid://kdi2j404p8q3"]
+[gd_scene load_steps=10 format=3 uid="uid://b7lqpgxhd5nab"]
 
 [ext_resource type="Script" path="res://Scenes/Cards/Card.cs" id="1_aaebj"]
-[ext_resource type="ArrayMesh" uid="uid://dxjuvdny7w8jp" path="res://Assets/stone.obj" id="2_xqcim"]
-[ext_resource type="Texture2D" uid="uid://w0lx8cd4xikg" path="res://Assets/stone.png" id="3_3dl5i"]
+[ext_resource type="Texture2D" uid="uid://bwwtfg4msnhoc" path="res://Assets/Textures/CardTypes/Corner.jpg" id="2_hhm4t"]
+[ext_resource type="ArrayMesh" uid="uid://dxjuvdny7w8jp" path="res://Assets/Models/stone.obj" id="2_xqcim"]
+[ext_resource type="Texture2D" uid="uid://w0lx8cd4xikg" path="res://Assets/Models/stone.png" id="3_3dl5i"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4rwyc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rlt6r"]
 size = Vector3(10, 1, 10)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30r0d"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5j4q8"]
 blend_mode = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30r0d"]
+next_pass = SubResource("StandardMaterial3D_5j4q8")
+blend_mode = 3
+normal_texture = ExtResource("2_hhm4t")
+heightmap_scale = 0.294
+heightmap_texture = ExtResource("2_hhm4t")
+detail_blend_mode = 3
+detail_normal = ExtResource("2_hhm4t")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jrwe"]
 albedo_texture = ExtResource("3_3dl5i")
-
-[sub_resource type="Curve3D" id="Curve3D_40hb3"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -5.2, 0.5, -5.2, 0, 0, 0, 0, 0, 0, 5.2, 0.5, -5.2, 0, 0, 0, 0, 0, 0, 5.2, 0.5, 5.2, 0, 0, 0, 0, 0, 0, -5.2, 0.5, 5.2, 0, 0, 0, 0, 0, 0, -5.2, 0.5, -5.2),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
-}
-point_count = 5
 
 [node name="Card" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -37,10 +40,5 @@ shape = SubResource("BoxShape3D_rlt6r")
 material_overlay = SubResource("StandardMaterial3D_30r0d")
 mesh = ExtResource("2_xqcim")
 surface_material_override/0 = SubResource("StandardMaterial3D_1jrwe")
-
-[node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-visible = false
-curve = SubResource("Curve3D_40hb3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

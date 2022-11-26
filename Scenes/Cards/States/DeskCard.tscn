@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://tblg2m5sx0xk"]
+[gd_scene load_steps=3 format=3 uid="uid://tblg2m5sx0xk"]
 
 [ext_resource type="Script" path="res://Scenes/Cards/States/DeskCard.cs" id="1_u7qjn"]
+[ext_resource type="AudioStream" uid="uid://nnuaxfo1w5vm" path="res://Assets/Sounds/StoneDrop.wav" id="2_rmsg8"]
 
 [node name="DeskCard" type="Node3D"]
 script = ExtResource("1_u7qjn")
+MoveAnimationDuration = 0.2
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_rmsg8")
+volume_db = 26.85

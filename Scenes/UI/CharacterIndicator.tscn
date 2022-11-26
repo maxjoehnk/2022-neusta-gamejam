@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjcg0knbt7kjg"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="ArrayMesh" uid="uid://c0o7uaol647hj" path="res://Assets/Character.obj" id="1_oajf3"]
+[ext_resource type="ArrayMesh" uid="uid://c0o7uaol647hj" path="res://Assets/Models/Character.obj" id="1_oajf3"]
 
 [node name="Node3D" type="Node3D"]
 

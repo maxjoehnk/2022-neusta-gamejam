@@ -8,6 +8,8 @@ public partial class DeskCard : Node3D
 	
 	private Card card;
 
+	private AudioStreamPlayer3D EnterSound => GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D");
+
 	public Position MapPosition { get; set; }
 
 	public int Orientation { get; set; }
@@ -89,5 +91,10 @@ public partial class DeskCard : Node3D
 		{
 			this.QueueFree();
 		}
+	}
+
+	public void PlayEnterSound()
+	{
+		this.EnterSound.Play();
 	}
 }

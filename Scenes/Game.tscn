@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://vtxl88bkety4"]
+[gd_scene load_steps=9 format=3 uid="uid://vtxl88bkety4"]
 
 [ext_resource type="Texture2D" uid="uid://idqt6n8hl6rt" path="res://Assets/wood-dark-building-129733.jpg" id="1_1pbp8"]
 [ext_resource type="Script" path="res://Scenes/Game.cs" id="1_tamdf"]
 [ext_resource type="PackedScene" uid="uid://ba33cdifl6o1x" path="res://Scenes/UI/UI.tscn" id="3_ri8lw"]
-[ext_resource type="PackedScene" uid="uid://cipoifnk18404" path="res://Scenes/UI/PlacementIndicator.tscn" id="4_fyap5"]
+[ext_resource type="PackedScene" uid="uid://kfuy1ulwrm58" path="res://Scenes/UI/PlacementIndicator.tscn" id="4_fyap5"]
+[ext_resource type="AudioStream" uid="uid://ckfxsvdyq1eix" path="res://Assets/Sounds/StoneMoving.wav" id="5_l5cc6"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0k0ol"]
 size = Vector2(400, 400)
@@ -27,7 +28,8 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 54.931
 current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.434532, 0.303181, -0.848094, 0.339345, 0.817134, 0.46598, 0.834282, -0.49028, 0.252188, -20.0653, 29.0836, 0)
+transform = Transform3D(0.434532, 0.303181, -0.848094, 0.339345, 0.817133, 0.465981, 0.834282, -0.49028, 0.252188, -20.0653, 29.0836, 0)
+light_energy = 1.5
 shadow_enabled = true
 
 [node name="Cards" type="Node3D" parent="."]
@@ -50,3 +52,8 @@ metadata/_edit_lock_ = true
 shape = SubResource("WorldBoundaryShape3D_5h7bp")
 
 [node name="PlacementIndicator" parent="." instance=ExtResource("4_fyap5")]
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="StoneMoving" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("5_l5cc6")

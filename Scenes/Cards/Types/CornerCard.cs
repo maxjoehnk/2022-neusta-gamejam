@@ -2,7 +2,7 @@ using Godot;
 
 public class CornerCard : ICardType
 {
-	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Corner.jpg");
+	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardTypes/Corner.jpg");
     
 	public Doors doors => new Doors
 	{

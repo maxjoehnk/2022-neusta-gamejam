@@ -2,12 +2,12 @@ using Godot;
 
 public class StraightCard : ICardType
 {
-	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Straight.jpg");
+	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardTypes/Straight.jpg");
 	
 	public Doors doors => new Doors
 	{
-		Left = true,
-		Right = true
+		Top = true,
+		Bottom = true
 	};
 }
 

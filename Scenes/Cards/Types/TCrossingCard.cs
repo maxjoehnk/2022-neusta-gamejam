@@ -2,11 +2,11 @@ using Godot;
 
 public class TCrossingCard : ICardType
 {
-	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/TCrossing.jpg");
+	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardTypes/TCrossing.jpg");
 	
 	public Doors doors => new Doors
 	{
-		Left = true,
+		Top = true,
 		Right = true,
 		Bottom = true
 	};

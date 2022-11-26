@@ -127,8 +127,6 @@ public class Map
 		{
 			y = y - yMin < yMax - y ? yMin : yMax;
 		}
-		// GD.Print($"X {rawX} {x} {xMin} {xMax} {rawX - xMin} {xMax - rawX}");
-		// GD.Print($"Y {rawY} {y} {yMin} {yMax} {rawY - yMin} {yMax - rawY}");
 
 		return new Position
 		{

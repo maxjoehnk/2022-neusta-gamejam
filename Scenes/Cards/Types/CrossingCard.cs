@@ -2,7 +2,7 @@ using Godot;
 
 public class CrossingCard : ICardType
 {
-	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Crossing.jpg");
+	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardTypes/Crossing.jpg");
 	
 	public Doors doors => new Doors
 	{
