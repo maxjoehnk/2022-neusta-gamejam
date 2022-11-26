@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://tblg2m5sx0xk"]
+
+[ext_resource type="Script" path="res://Scenes/Cards/DeskCard.cs" id="1_u7qjn"]
+
+[node name="DeskCard" type="Node3D"]
+script = ExtResource("1_u7qjn")

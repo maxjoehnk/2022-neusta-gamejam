@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjcg0knbt7kjg"]
+
+[ext_resource type="ArrayMesh" uid="uid://c0o7uaol647hj" path="res://Assets/Character.obj" id="1_oajf3"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.013298, 0.949643, 2.74022)
+projection = 1
+size = 5.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_oajf3")
+skeleton = NodePath("../../..")

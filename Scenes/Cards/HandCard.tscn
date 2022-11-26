@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmym637xle5ne"]
+
+[ext_resource type="Script" path="res://Scenes/Cards/HandCard.cs" id="1_fw6mp"]
+
+[node name="HandCard" type="Node3D"]
+script = ExtResource("1_fw6mp")
+rayLength = 70

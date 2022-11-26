@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://c85h5g17exmsh"]
+
+[ext_resource type="ArrayMesh" uid="uid://c0o7uaol647hj" path="res://Assets/Character.obj" id="1_p8a4x"]
+[ext_resource type="Script" path="res://Scenes/Player.cs" id="2_vdnuq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6jpp5"]
+frequency = 1.0
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b2o4s"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_6jpp5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tr202"]
+albedo_color = Color(0.545098, 0, 0.0470588, 1)
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_b2o4s")
+ao_enabled = true
+
+[node name="Player" type="MeshInstance3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_tr202")
+mesh = ExtResource("1_p8a4x")
+script = ExtResource("2_vdnuq")

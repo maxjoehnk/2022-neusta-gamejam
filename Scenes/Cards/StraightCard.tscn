@@ -1,0 +1,21 @@
+[gd_scene load_steps=7 format=3 uid="uid://djikadlyd4go2"]
+
+[ext_resource type="Texture2D" uid="uid://br7hlx1jd6g6w" path="res://Assets/Straight.jpg" id="1_8vq42"]
+[ext_resource type="ArrayMesh" uid="uid://dxjuvdny7w8jp" path="res://Assets/stone.obj" id="2_tqftt"]
+[ext_resource type="Texture2D" uid="uid://w0lx8cd4xikg" path="res://Assets/stone.png" id="3_rlil2"]
+[ext_resource type="Script" path="res://Scenes/Cards/StraightCard.cs" id="4_o1qlw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27ngi"]
+blend_mode = 3
+albedo_color = Color(1, 1, 1, 0)
+albedo_texture = ExtResource("1_8vq42")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkv8g"]
+albedo_texture = ExtResource("3_rlil2")
+
+[node name="StraightCard" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_overlay = SubResource("StandardMaterial3D_27ngi")
+mesh = ExtResource("2_tqftt")
+surface_material_override/0 = SubResource("StandardMaterial3D_hkv8g")
+script = ExtResource("4_o1qlw")

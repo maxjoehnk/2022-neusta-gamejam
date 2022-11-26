@@ -1,0 +1,21 @@
+[gd_scene load_steps=7 format=3 uid="uid://eo4bmxokk32l"]
+
+[ext_resource type="Texture2D" uid="uid://dgtupnx3qiko" path="res://Assets/Crossing.jpg" id="1_57inw"]
+[ext_resource type="ArrayMesh" uid="uid://dxjuvdny7w8jp" path="res://Assets/stone.obj" id="2_br0k3"]
+[ext_resource type="Texture2D" uid="uid://w0lx8cd4xikg" path="res://Assets/stone.png" id="3_ttgxo"]
+[ext_resource type="Script" path="res://Scenes/Cards/CrossingCard.cs" id="4_4tbaj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h6fcr"]
+blend_mode = 3
+albedo_color = Color(1, 1, 1, 0)
+albedo_texture = ExtResource("1_57inw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkv8g"]
+albedo_texture = ExtResource("3_ttgxo")
+
+[node name="CrossingCard" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_overlay = SubResource("StandardMaterial3D_h6fcr")
+mesh = ExtResource("2_br0k3")
+surface_material_override/0 = SubResource("StandardMaterial3D_hkv8g")
+script = ExtResource("4_4tbaj")

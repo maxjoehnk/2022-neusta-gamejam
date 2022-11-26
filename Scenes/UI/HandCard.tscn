@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://rohiivjsu8pw"]
+
+[ext_resource type="BoxMesh" uid="uid://ddfcgih3m7e5c" path="res://Scenes/Cards/CardMesh.tres" id="1_j3vhl"]
+
+[node name="HandCard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+mesh = ExtResource("1_j3vhl")

@@ -1,0 +1,13 @@
+<Project Sdk="Godot.NET.Sdk/4.0.0-beta.6">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>NeustaGamejam</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Tests\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Tests\**" />
+  </ItemGroup>
+</Project>
