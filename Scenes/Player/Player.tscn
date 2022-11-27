@@ -1,25 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dg8h4202jbpem"]
+[gd_scene load_steps=6 format=3 uid="uid://dg8h4202jbpem"]
 
 [ext_resource type="ArrayMesh" uid="uid://c0o7uaol647hj" path="res://Assets/Models/Character.obj" id="1_p8a4x"]
 [ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="2_vdnuq"]
 [ext_resource type="ArrayMesh" uid="uid://drgiuuy3ygdov" path="res://Assets/Models/escooter.obj" id="3_ft4oy"]
 [ext_resource type="ArrayMesh" uid="uid://cqwndgikwus07" path="res://Assets/Models/hat.obj" id="4_0of7j"]
 [ext_resource type="Material" uid="uid://bsl3r7po0dlys" path="res://Resources/Materials/hat.tres" id="5_cj06a"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6jpp5"]
-frequency = 1.0
-fractal_type = 3
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b2o4s"]
-seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_6jpp5")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tr202"]
-albedo_color = Color(0.545098, 0, 0.0470588, 1)
-normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_b2o4s")
-ao_enabled = true
 
 [node name="Player" type="Node3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -29,12 +14,13 @@ jumpAnimationDuration = 0.1
 [node name="EScooter" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25167, 0)
 visible = false
+material_override = ExtResource("5_cj06a")
 mesh = ExtResource("3_ft4oy")
 skeleton = NodePath("../..")
 
 [node name="Cone" type="MeshInstance3D" parent="."]
 visible = false
-material_override = SubResource("StandardMaterial3D_tr202")
+material_override = ExtResource("5_cj06a")
 mesh = ExtResource("1_p8a4x")
 
 [node name="Hat" type="MeshInstance3D" parent="."]
