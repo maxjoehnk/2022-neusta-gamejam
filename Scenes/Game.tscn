@@ -10,6 +10,8 @@
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0k0ol"]
 size = Vector2(400, 300)
+subdivide_width = 4
+subdivide_depth = 4
 center_offset = Vector3(50, 0, 50)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vm8bb"]
