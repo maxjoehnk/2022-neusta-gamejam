@@ -5,6 +5,7 @@ using Godot;
 public partial class Player : Node3D
 {
     private Tween tween;
+    private PropertyTweener runningTweenAnimation;
 
     [Export] private double rotationAnimationDuration = 0.2;
     [Export] private double movementAnimationDuration = 0.2;
@@ -57,7 +58,7 @@ public partial class Player : Node3D
         tween.TweenProperty(this, "rotation", rotation, rotationAnimationDuration);
 
         Vector3 translation = MapToGlobalPosition();
-        this.tween.TweenProperty(this, "position", translation, movementAnimationDuration);
+        this.runningTweenAnimation = this.tween.TweenProperty(this, "position", translation, movementAnimationDuration);
 
         return direction;
     }
@@ -67,14 +68,14 @@ public partial class Player : Node3D
         this.MapPosition = position;
 
         Vector3 translation = MapToGlobalPosition();
-        movementTween.TweenProperty(this, "position", translation, duration);
+        this.runningTweenAnimation = movementTween.TweenProperty(this, "position", translation, duration);
     }
 
     public void JumpTo(Position position)
     {
         this.MapPosition = position;
         Vector3 translation = MapToGlobalPosition();
-        this.tween.TweenProperty(this, "position", translation, jumpAnimationDuration).SetDelay(this.jumpToAnimationDelay);
+        this.runningTweenAnimation = this.tween.TweenProperty(this, "position", translation, jumpAnimationDuration).SetDelay(this.jumpToAnimationDelay);
     }
 
     private void SetPosition()
@@ -91,8 +92,16 @@ public partial class Player : Node3D
     private PropertyTweener AnimateMovement(Tween tween)
     {
         Vector3 translation = MapToGlobalPosition();
+        if (this.tween is { } runningTween)
+        {
+            runningTween.Kill();
+        }
+        this.tween = tween;
 
-        return tween.TweenProperty(this, "position", translation, movementAnimationDuration);
+        PropertyTweener animateMovement = tween.TweenProperty(this, "position", translation, this.movementAnimationDuration);
+        this.runningTweenAnimation = animateMovement;
+        
+        return animateMovement;
     }
 
     private Vector3 MapToGlobalPosition()
@@ -119,7 +128,14 @@ public partial class Player : Node3D
 
     public void ResetToSpawn()
     {
-        this.tween.TweenCallback(new Callable(this, nameof(this.MoveToSpawn)));
+        if (this.runningTweenAnimation != null)
+        {
+            this.runningTweenAnimation.Finished += this.MoveToSpawn;
+        }
+        else
+        {
+            this.MoveToSpawn();
+        }
     }
 
     private void MoveToSpawn()

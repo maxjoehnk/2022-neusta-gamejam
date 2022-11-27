@@ -88,6 +88,10 @@ public class Map
 				if (targetY < 0 || targetY > maxY)
 				{
 					card.Despawn();
+					foreach (Player player in players.Where(p => p.MapPosition == card.MapPosition))
+					{
+						player.ResetToSpawn();
+					}
 				}
 				else
 				{
@@ -113,6 +117,10 @@ public class Map
 				if (targetX < 0 || targetX > maxX)
 				{
 					card.Despawn();
+					foreach (Player player in players.Where(p => p.MapPosition == card.MapPosition))
+					{
+						player.ResetToSpawn();
+					}
 				}
 				else
 				{
