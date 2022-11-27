@@ -217,7 +217,7 @@ public partial class Game : Node3D
     {
         for (int i = 0; i < 2; i++)
         {
-            Player player = this.playerFactory.CreatePlayer(i);
+            Player player = this.playerFactory.CreatePlayer(i, this.gameState.Map.Spawns[i]);
             player.Cards = Enumerable.Range(0, 5).Select(_ => this.cardFactory.CreateCard()).ToList();
             this.gameState.Players.Add(player);
             this.PlayersRoot.AddChild(player);

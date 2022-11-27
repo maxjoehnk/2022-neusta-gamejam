@@ -20,6 +20,7 @@ public partial class Player : Node3D
 
     public int Coins { get; set; }
 
+    public Position Spawn { get; set; }
     public Position MapPosition { get; set; }
 
     public Character Character { get; set; }

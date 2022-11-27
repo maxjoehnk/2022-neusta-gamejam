@@ -12,6 +12,14 @@ public class Map
 
 	public IEnumerable<DeskCard> Cards => cards.SelectMany(row => row);
 
+	public List<Position> Spawns => new List<Position>
+	{
+		new Position(0, 0),
+		new Position(0, this.maxY),
+		new Position(this.maxX, this.maxY),
+		new Position(this.maxX, 0)
+	};
+	
 	public void SetCards(List<DeskCard> cardList)
 	{
 		maxX = cardList.Max(card => card.MapPosition.X);

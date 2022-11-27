@@ -15,10 +15,11 @@ public class PlayerFactory
         this.playerScene = ResourceLoader.Load<PackedScene>("res://Scenes/Player/Player.tscn");
     }
 
-    public Player CreatePlayer(int i)
+    public Player CreatePlayer(int i, Position spawn)
     {
         Player player = this.playerScene.Instantiate<Player>();
-        player.MapPosition = new Position { X = 0, Y = i };
+        player.Spawn = spawn;
+        player.MapPosition = spawn;
         player.Character = Characters[i];
         player.Name = $"Player {i}";
 
