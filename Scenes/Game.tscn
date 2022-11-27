@@ -1,23 +1,19 @@
 [gd_scene load_steps=10 format=3 uid="uid://vtxl88bkety4"]
 
-[ext_resource type="Texture2D" uid="uid://idqt6n8hl6rt" path="res://Assets/wood-dark-building-129733.jpg" id="1_1pbp8"]
 [ext_resource type="Script" path="res://Scenes/Game.cs" id="1_tamdf"]
 [ext_resource type="PackedScene" uid="uid://dpv5vkdhhd47c" path="res://Scenes/UI/HandCards.tscn" id="2_nb5k2"]
 [ext_resource type="PackedScene" uid="uid://ba33cdifl6o1x" path="res://Scenes/UI/UI.tscn" id="3_ri8lw"]
+[ext_resource type="Shader" uid="uid://doxsumb3hn6l4" path="res://Scenes/Player/wood.tres" id="4_8hvjj"]
 [ext_resource type="PackedScene" uid="uid://kfuy1ulwrm58" path="res://Scenes/UI/PlacementIndicator.tscn" id="4_fyap5"]
 [ext_resource type="AudioStream" uid="uid://ckfxsvdyq1eix" path="res://Assets/Sounds/StoneMoving.wav" id="5_l5cc6"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0k0ol"]
-size = Vector2(400, 400)
+size = Vector2(400, 300)
 center_offset = Vector3(50, 0, 50)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3soc2"]
-albedo_texture = ExtResource("1_1pbp8")
-ao_enabled = true
-heightmap_scale = 0.5
-heightmap_texture = ExtResource("1_1pbp8")
-heightmap_flip_texture = true
-grow_amount = 2.296
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vm8bb"]
+render_priority = 0
+shader = ExtResource("4_8hvjj")
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_5h7bp"]
 
@@ -45,14 +41,14 @@ shadow_enabled = true
 metadata/_edit_lock_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -4.27325)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -50)
 collision_mask = 3
 metadata/_edit_lock_ = true
 
 [node name="Plane" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("PlaneMesh_0k0ol")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_3soc2")
+surface_material_override/0 = SubResource("ShaderMaterial_vm8bb")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
