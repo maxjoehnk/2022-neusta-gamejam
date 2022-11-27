@@ -108,4 +108,15 @@ public partial class Player : Node3D
         int cardIndex = this.Cards.FindIndex(c => c == oldCard);
         this.Cards[cardIndex] = newCard;
     }
+
+    public void ResetToSpawn()
+    {
+        this.tween.TweenCallback(new Callable(this, nameof(this.MoveToSpawn)));
+    }
+
+    private void MoveToSpawn()
+    {
+        this.MapPosition = this.Spawn;
+        this.Position = this.MapToGlobalPosition();
+    }
 }

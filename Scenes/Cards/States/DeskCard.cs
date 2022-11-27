@@ -6,6 +6,7 @@ public partial class DeskCard : Node3D
 	
 	private bool despawn;
 	private Node3D cardEffectMarker;
+	private Node3D cardModifierMarker;
 
 	public BaseCard BaseCard { get; private set; }
 
@@ -74,6 +75,11 @@ public partial class DeskCard : Node3D
 			this.RemoveChild(this.cardEffectMarker);
 			this.cardEffectMarker.QueueFree();
 		}
+		if (this.cardModifierMarker != null)
+		{
+			this.RemoveChild(this.cardModifierMarker);
+			this.cardModifierMarker.QueueFree();
+		}
 		this.AddChild(card);
 		this.BaseCard = card;
 		this.UpdateDescription();
@@ -81,6 +87,11 @@ public partial class DeskCard : Node3D
 		if (this.cardEffectMarker != null)
 		{
 			this.AddChild(this.cardEffectMarker);
+		}
+		this.cardModifierMarker = card.Card.Modifier?.CreateMarker();
+		if (this.cardModifierMarker != null)
+		{
+			this.AddChild(this.cardModifierMarker);
 		}
 	}
 
@@ -113,6 +124,6 @@ public partial class DeskCard : Node3D
 
 	private void UpdateDescription()
 	{
-		this.EditorDescription = $"Card ({BaseCard.Card.Type}, {BaseCard.Card.Effect})";
+		this.EditorDescription = $"Card ({BaseCard.Card.Type}, {BaseCard.Card.Effect}, {BaseCard.Card.Modifier})";
 	}
 }

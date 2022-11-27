@@ -7,6 +7,8 @@ public record CardResult
     public int ModifyCardsRemaining { get; set; }
 
     public int? RemainingMoves { get; set; }
+    
+    public bool Kill { get; set; }
 
     public CardResult Join(CardResult other)
     {
@@ -30,6 +32,7 @@ public record CardResult
             EndTurn = this.EndTurn || other.EndTurn,
             ModifyCardsRemaining = this.ModifyCardsRemaining + other.ModifyCardsRemaining,
             RemainingMoves = remainingMoves,
+            Kill = this.Kill || other.Kill,
         };
     }
 }

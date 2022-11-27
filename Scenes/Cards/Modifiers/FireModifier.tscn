@@ -1,17 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://bjgeyg7wjmhgq"]
 
-[ext_resource type="Material" uid="uid://cwnvwl4uutkv4" path="res://Tests/FireParticleProcess.tres" id="1_tadge"]
-[ext_resource type="Material" uid="uid://b0ooiy2j4f4ia" path="res://Tests/FireMaterial.tres" id="2_jfg2s"]
+[ext_resource type="Material" uid="uid://cwnvwl4uutkv4" path="res://Resources/Materials/FireModifier/FireParticleProcess.tres" id="1_j6ngb"]
+[ext_resource type="Material" uid="uid://b0ooiy2j4f4ia" path="res://Resources/Materials/FireModifier/FireMaterial.tres" id="2_mbmyt"]
 
 [sub_resource type="TubeTrailMesh" id="TubeTrailMesh_i0tpr"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_41lax"]
-material = ExtResource("2_jfg2s")
+material = ExtResource("2_mbmyt")
 subdivide_width = 1
 subdivide_depth = 1
 orientation = 2
 
-[node name="Test" type="Node3D"]
+[node name="FireModifier" type="Node3D"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0.986769, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.71368, 0.0159773)
@@ -29,5 +30,5 @@ local_coords = true
 draw_order = 3
 trail_enabled = true
 trail_lifetime = 0.17
-process_material = ExtResource("1_tadge")
+process_material = ExtResource("1_j6ngb")
 draw_pass_1 = SubResource("PlaneMesh_41lax")

@@ -306,7 +306,11 @@ public partial class Game : Node3D
         Direction direction = this.gameState.ActivePlayer.MoveTo(position);
         BaseCard card = this.gameState.Map.GetCard(position);
         CardResult cardResult = card.OnEnter(this.gameState, direction);
-        if (cardResult?.EndTurn == true)
+        if (cardResult?.Kill == true)
+        {
+            this.gameState.ActivePlayer.ResetToSpawn();
+        }
+        if (cardResult?.EndTurn == true || cardResult?.Kill == true)
         {
             this.NextTurn();
         }

@@ -28,6 +28,7 @@ public class CardFactory
 	{
 		new GlueModifierFactory(),
 		new IceModifierFactory(),
+		new FireModifierFactory(),
 	};
 
 	private readonly Random random = new Random();
