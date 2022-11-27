@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dp7y273iueep8"]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://Scenes/Cards/BaseCard.cs" id="1_73y3u"]
-[ext_resource type="Material" uid="uid://dtkftcwwdxqs7" path="res://Scenes/Cards/CardOverlay.tres" id="2_so6ri"]
+[ext_resource type="Material" uid="uid://dtkftcwwdxqs7" path="res://Resources/Materials/CardOverlay.tres" id="2_so6ri"]
 [ext_resource type="ArrayMesh" uid="uid://dxjuvdny7w8jp" path="res://Assets/Models/stone.obj" id="3_31o8q"]
 [ext_resource type="Texture2D" uid="uid://w0lx8cd4xikg" path="res://Assets/Models/stone.png" id="4_fsp6a"]
 

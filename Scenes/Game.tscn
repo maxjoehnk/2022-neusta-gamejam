@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://vtxl88bkety4"]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://Scenes/Game.cs" id="1_tamdf"]
 [ext_resource type="PackedScene" uid="uid://dpv5vkdhhd47c" path="res://Scenes/UI/HandCards.tscn" id="2_nb5k2"]
 [ext_resource type="PackedScene" uid="uid://ba33cdifl6o1x" path="res://Scenes/UI/UI.tscn" id="3_ri8lw"]
-[ext_resource type="Shader" uid="uid://doxsumb3hn6l4" path="res://Scenes/Player/wood.tres" id="4_8hvjj"]
+[ext_resource type="Shader" uid="uid://doxsumb3hn6l4" path="res://Resources/Shaders/wood.tres" id="4_8hvjj"]
 [ext_resource type="PackedScene" uid="uid://kfuy1ulwrm58" path="res://Scenes/UI/PlacementIndicator.tscn" id="4_fyap5"]
 [ext_resource type="AudioStream" uid="uid://ckfxsvdyq1eix" path="res://Assets/Sounds/StoneMoving.wav" id="5_l5cc6"]
 
