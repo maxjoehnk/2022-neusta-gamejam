@@ -59,7 +59,7 @@ public class CoinEffect : ICardEffect
 
 public class CoinEffectFactory : ICardEffectFactory
 {
-    public int Probability => 100;
+    public int Probability => 10;
     
     public ICardEffect BuildCardEffect()
     {
