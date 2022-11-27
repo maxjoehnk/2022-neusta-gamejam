@@ -21,6 +21,7 @@ public class CardFactory
 	{
 		new TeleportEffectFactory(),
 		new CoinEffectFactory(),
+		new PicnicEffectFactory(),
 	};
 
 	private readonly Random random = new Random();

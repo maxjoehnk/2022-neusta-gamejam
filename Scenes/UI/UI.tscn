@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ba33cdifl6o1x"]
+[gd_scene load_steps=3 format=3 uid="uid://ba33cdifl6o1x"]
 
 [ext_resource type="Script" path="res://Scenes/UI/UI.cs" id="1_y05f8"]
+[ext_resource type="PackedScene" uid="uid://d3i0nd6046qog" path="res://Scenes/UI/AvailableCardsIndicator.tscn" id="2_spd66"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -16,3 +17,11 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
+
+[node name="AvailableCardsIndicator" parent="." instance=ExtResource("2_spd66")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -648.0
+offset_bottom = -608.0
+grow_vertical = 0

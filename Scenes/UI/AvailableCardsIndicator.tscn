@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3i0nd6046qog"]
+
+[ext_resource type="Script" path="res://Scenes/UI/AvailableCardsIndicator.cs" id="1_by0ef"]
+[ext_resource type="PackedScene" uid="uid://b1og1ghbd70wc" path="res://Scenes/UI/CardIndicator.tscn" id="2_y18gh"]
+
+[node name="AvailableCardsIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_by0ef")
+
+[node name="Cards" type="VFlowContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 598.0
+offset_right = 50.0
+offset_bottom = 638.0
+
+[node name="CardIndicator" parent="Cards" instance=ExtResource("2_y18gh")]
+layout_mode = 2
+
+[node name="LineBelow" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 630.0
+offset_right = 41.0
+offset_bottom = 632.0
+color = Color(0, 0, 0, 1)

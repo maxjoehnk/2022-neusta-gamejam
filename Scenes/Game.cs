@@ -37,9 +37,9 @@ public partial class Game : Node3D
     {
         this.cardFactory = new CardFactory();
         this.playerFactory = new PlayerFactory();
-        this.Reset();
-        this.PlacementIndicator.Hide();
+        this.UiRoot.GameState = this.gameState;
         this.InitialCardsPosition = this.HandCards.Position;
+        this.Reset();
     }
 
     public override void _Process(double delta)
@@ -54,9 +54,9 @@ public partial class Game : Node3D
             this.Reset();
         }
 
+        this.PlaceCard();
         this.SelectCard();
         this.RotateCard();
-        this.PlaceCard();
         this.PlayerMovement();
         this.UpdateActivePlayer();
         this.UpdateHandCards();
@@ -112,7 +112,9 @@ public partial class Game : Node3D
         this.PlacementIndicator.Hide();
         deskCard.PlayEnterSound();
         this.StoneMovingSound.Play();
-        this.gameState.Turn.CardsLeft--;
+        this.gameState.Turn.ModifyAvailableCards(-1);
+        this.UiRoot.UpdateAvailableCards();
+        GD.Print(this.gameState.Turn);
     }
 
     private void RotateCard()
@@ -220,8 +222,6 @@ public partial class Game : Node3D
             this.gameState.Players.Add(player);
             this.PlayersRoot.AddChild(player);
         }
-
-        this.UiRoot.Players = this.gameState.Players;
     }
 
     private void FillCards()
@@ -282,6 +282,9 @@ public partial class Game : Node3D
         {
             this.NextTurn();
         }
+
+        this.gameState.Turn.ModifyAvailableCards(cardResult?.ModifyCardsRemaining ?? 0);
+        this.UiRoot.UpdateAvailableCards();
     }
 
     private void NextTurn()
@@ -295,8 +298,10 @@ public partial class Game : Node3D
     {
         this.PlacementIndicator.Hide();
         this.HandCards.Player = this.gameState.ActivePlayer;
+        this.gameState.Turn.CardsAvailable = 1;
         this.gameState.Turn.CardsLeft = 1;
         this.UpdateActivePlayer();
+        this.UiRoot.Update();
     }
 
     private void UpdateActivePlayer()

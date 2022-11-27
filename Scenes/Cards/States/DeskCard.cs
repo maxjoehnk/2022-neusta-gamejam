@@ -17,6 +17,11 @@ public partial class DeskCard : Node3D
 	
 	public bool Hovering { get; set; }
 
+	public DeskCard()
+	{
+		this.MapPosition = new Position();
+	}
+
 	public override void _Ready()
 	{
 		ApplyPosition();

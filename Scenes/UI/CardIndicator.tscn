@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1og1ghbd70wc"]
+
+[ext_resource type="Texture2D" uid="uid://bs8t1qt272uxe" path="res://Assets/Textures/UI/CardAvailable.png" id="1_h4wwy"]
+[ext_resource type="Script" path="res://Scenes/UI/CardIndicator.cs" id="2_1tkel"]
+
+[node name="CardIndicator" type="TextureRect"]
+clip_contents = true
+custom_minimum_size = Vector2(32, 32)
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("1_h4wwy")
+ignore_texture_size = true
+script = ExtResource("2_1tkel")
