@@ -1,0 +1,118 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhp25sxqk7pa5"]
+
+[ext_resource type="Script" path="res://Scenes/UI/Screens/WinScreen.cs" id="1_rsksb"]
+[ext_resource type="PackedScene" uid="uid://i4431njw8kyx" path="res://Scenes/UI/PlayerIndicator.tscn" id="2_6xj4j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0h7gh"]
+font_size = 32
+font_color = Color(0.976471, 0.984314, 1, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.407843)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_maiqf"]
+font_size = 12
+font_color = Color(0.972549, 1, 1, 1)
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.176471)
+shadow_offset = Vector2(2, 2)
+
+[node name="WinScreen" type="Panel"]
+process_mode = 3
+clip_contents = true
+custom_minimum_size = Vector2(600, 400)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_rsksb")
+
+[node name="Container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -111.5
+offset_top = 50.0
+offset_right = 111.5
+offset_bottom = 258.0
+grow_horizontal = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="Container"]
+layout_mode = 2
+offset_right = 223.0
+offset_bottom = 48.0
+size_flags_horizontal = 3
+text = "Someone Won"
+label_settings = SubResource("LabelSettings_0h7gh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerListTitle" type="Label" parent="Container"]
+layout_mode = 2
+offset_top = 52.0
+offset_right = 223.0
+offset_bottom = 72.0
+text = "Players"
+label_settings = SubResource("LabelSettings_maiqf")
+
+[node name="PlayerList" type="HFlowContainer" parent="Container"]
+layout_mode = 2
+offset_top = 76.0
+offset_right = 223.0
+offset_bottom = 344.0
+
+[node name="PlayerIndicator" parent="Container/PlayerList" instance=ExtResource("2_6xj4j")]
+layout_mode = 2
+offset_right = 117.0
+offset_bottom = 64.0
+
+[node name="PlayerIndicator2" parent="Container/PlayerList" instance=ExtResource("2_6xj4j")]
+layout_mode = 2
+offset_top = 68.0
+offset_right = 117.0
+offset_bottom = 132.0
+
+[node name="PlayerIndicator3" parent="Container/PlayerList" instance=ExtResource("2_6xj4j")]
+layout_mode = 2
+offset_top = 136.0
+offset_right = 117.0
+offset_bottom = 200.0
+
+[node name="PlayerIndicator4" parent="Container/PlayerList" instance=ExtResource("2_6xj4j")]
+layout_mode = 2
+offset_top = 204.0
+offset_right = 117.0
+offset_bottom = 268.0
+
+[node name="Buttons" type="VFlowContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -53.0
+offset_top = -40.0
+offset_right = 53.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Exit" type="Button" parent="Buttons"]
+layout_mode = 2
+offset_right = 37.0
+offset_bottom = 31.0
+text = "Exit"
+
+[node name="Restart" type="Button" parent="Buttons"]
+layout_mode = 2
+offset_left = 41.0
+offset_right = 106.0
+offset_bottom = 31.0
+text = "Restart"

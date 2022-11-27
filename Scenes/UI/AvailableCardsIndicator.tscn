@@ -11,17 +11,14 @@ offset_bottom = 40.0
 script = ExtResource("1_by0ef")
 
 [node name="Cards" type="VFlowContainer" parent="."]
-layout_mode = 0
 offset_left = 10.0
 offset_top = 598.0
 offset_right = 50.0
 offset_bottom = 638.0
 
 [node name="CardIndicator" parent="Cards" instance=ExtResource("2_y18gh")]
-layout_mode = 2
 
 [node name="LineBelow" type="ColorRect" parent="."]
-layout_mode = 0
 offset_left = 7.0
 offset_top = 630.0
 offset_right = 41.0

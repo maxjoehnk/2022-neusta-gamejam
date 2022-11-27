@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameState
 {
@@ -24,5 +25,10 @@ public class GameState
         {
             this.Turn.PlayerIndex = 0;
         }
+    }
+
+    public bool HasSomeoneWon()
+    {
+        return this.Players.Any(p => p.Coins == Constants.PointsToWin);
     }
 }

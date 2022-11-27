@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://i4431njw8kyx"]
+[gd_scene load_steps=4 format=3 uid="uid://i4431njw8kyx"]
 
 [ext_resource type="Script" path="res://Scenes/UI/PlayerIndicator.cs" id="1_5fnx3"]
 [ext_resource type="PackedScene" uid="uid://dklmrs0iv5v8h" path="res://Scenes/UI/coin.tscn" id="2_bdvp8"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_djl8w"]
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.258824)
+
 [node name="PlayerIndicator" type="VFlowContainer"]
+process_mode = 3
 clip_contents = true
 offset_right = 40.0
 offset_bottom = 40.0
@@ -11,27 +16,23 @@ script = ExtResource("1_5fnx3")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
 offset_right = 64.0
 offset_bottom = 64.0
 
 [node name="Stats" type="HFlowContainer" parent="."]
-layout_mode = 2
 offset_left = 68.0
 offset_right = 117.0
 offset_bottom = 62.0
 
 [node name="Label" type="Label" parent="Stats"]
-layout_mode = 2
 offset_right = 49.0
 offset_bottom = 26.0
 text = "Player"
+label_settings = SubResource("LabelSettings_djl8w")
 
 [node name="Coins" type="VFlowContainer" parent="Stats"]
-layout_mode = 2
 offset_top = 30.0
 offset_right = 32.0
 offset_bottom = 62.0
 
 [node name="Coin" parent="Stats/Coins" instance=ExtResource("2_bdvp8")]
-layout_mode = 2

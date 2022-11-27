@@ -24,11 +24,8 @@ public partial class UI : Control
 
 	private void UpdatePlayers()
 	{
-		foreach (Node child in PlayersRoot.GetChildren())
-		{
-			this.PlayersRoot.RemoveChild(child);
-		}
-
+		this.PlayersRoot.ClearChildren();
+		
 		foreach (Player player in this.Players)
 		{
 			PlayerIndicator playerIndicator = this.playerIndicatorScene.Instantiate<PlayerIndicator>();

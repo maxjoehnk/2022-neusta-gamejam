@@ -21,6 +21,7 @@ public partial class Game : Node3D
     private Node3D CardsRoot => GetNode<Node3D>("Cards");
     private Node3D PlayersRoot => GetNode<Node3D>("Players");
     private UI UiRoot => GetNode<UI>("UI");
+    private WinScreen WinScreen => GetNode<WinScreen>("WinScreen");
     private Camera3D Camera => GetNode<Camera3D>("Camera");
     private Node3D PlacementIndicator => GetNode<Node3D>("PlacementIndicator");
     private AudioStreamPlayer StoneMovingSound => GetNode<AudioStreamPlayer>("Sounds/StoneMoving");
@@ -38,8 +39,10 @@ public partial class Game : Node3D
         this.cardFactory = new CardFactory();
         this.playerFactory = new PlayerFactory();
         this.UiRoot.GameState = this.gameState;
+        this.WinScreen.GameState = this.gameState;
         this.InitialCardsPosition = this.HandCards.Position;
         this.Reset();
+        this.WinScreen.RestartGame += this.OnRestart;
     }
 
     public override void _Process(double delta)
@@ -60,6 +63,26 @@ public partial class Game : Node3D
         this.PlayerMovement();
         this.UpdateActivePlayer();
         this.UpdateHandCards();
+        this.CheckWinCondition();
+    }
+
+    private void OnRestart()
+    {
+        this.GetTree().Paused = false;
+        this.WinScreen.Hide();
+        this.Reset();
+    }
+
+    private void CheckWinCondition()
+    {
+        if (!this.gameState.HasSomeoneWon())
+        {
+            return;
+        }
+
+        this.WinScreen.Show();
+        this.WinScreen.UpdatePlayers();
+        this.GetTree().Paused = true;
     }
 
     private void UpdateHandCards()
@@ -182,6 +205,7 @@ public partial class Game : Node3D
 
     private void Reset()
     {
+        this.WinScreen.Hide();
         if (this.placingCard != null)
         {
             this.RemoveChild(this.placingCard);
