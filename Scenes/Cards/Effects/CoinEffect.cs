@@ -7,7 +7,7 @@ public class CoinEffect : ICardEffect
     private bool hasCoin = true;
     private Node3D coinMarker;
 
-    public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardEffects/coin.png");
+    public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardEffects/coin.jpg");
     
     public Doors ModifyDoors(Doors doors)
     {
