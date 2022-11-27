@@ -73,9 +73,9 @@ public partial class BaseCard : Node3D
 		};
 	}
 
-	public void OnEnter(Player player, Map map)
+	public CardResult OnEnter(Player player, Map map)
 	{
-		this.CardEffect?.OnEnter(player, map);
+		return this.CardEffect?.OnEnter(player, map);
 	}
 
 	public void SetCard(Card card)

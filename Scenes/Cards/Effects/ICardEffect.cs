@@ -6,7 +6,7 @@ public interface ICardEffect
     
     public Doors ModifyDoors(Doors doors);
 
-    public void OnEnter(Player player, Map map);
+    public CardResult OnEnter(Player player, Map map);
 
     public void Ready(BaseCard card)
     {
