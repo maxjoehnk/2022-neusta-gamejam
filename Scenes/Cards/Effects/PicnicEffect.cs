@@ -14,7 +14,7 @@ public class PicnicEffect : ICardEffect
         return doors;
     }
 
-    public CardResult OnEnter(GameState gameState)
+    public CardResult OnEnter(GameState gameState, Direction direction)
     {
         if (this.players.Contains(gameState.ActivePlayer))
         {
@@ -25,8 +25,6 @@ public class PicnicEffect : ICardEffect
             ModifyCardsRemaining = 1
         };
     }
-    
-    
 }
 
 public class PicnicEffectFactory : ICardEffectFactory

@@ -14,7 +14,7 @@ public class CoinEffect : ICardEffect
         return doors;
     }
 
-    public CardResult OnEnter(GameState gameState)
+    public CardResult OnEnter(GameState gameState, Direction direction)
     {
         if (!this.hasCoin)
         {

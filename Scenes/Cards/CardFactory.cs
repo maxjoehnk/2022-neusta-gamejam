@@ -24,6 +24,12 @@ public class CardFactory
 		new PicnicEffectFactory(),
 	};
 
+	private readonly List<ICardModifierFactory> cardModifierFactories = new List<ICardModifierFactory>
+	{
+		new GlueModifierFactory(),
+		new IceModifierFactory(),
+	};
+
 	private readonly Random random = new Random();
 
 	public Card CreateCard()
@@ -32,12 +38,18 @@ public class CardFactory
 
 		ICardTypeFactory cardTypeFactory = WeightedRandomizer.Next(this.cardTypeFactories);
 		ICardType cardType = cardTypeFactory.BuildCardType();
-		card.CardType = cardType;
+		card.Type = cardType;
 
 		ICardEffectFactory cardEffectFactory = WeightedRandomizer.Next(this.cardEffectFactories, 100);
 		if (cardEffectFactory != null)
 		{
-			card.CardEffect = cardEffectFactory.BuildCardEffect();
+			card.Effect = cardEffectFactory.BuildCardEffect();
+		}
+
+		ICardModifierFactory cardModifierFactory = WeightedRandomizer.Next(this.cardModifierFactories, 100);
+		if (cardModifierFactory != null)
+		{
+			card.Modifier = cardModifierFactory.BuildCardModifier();
 		}
 
 		return card;
@@ -69,8 +81,7 @@ public class CardFactory
 	public DeskCard FromHand(PlacingCard placingCard)
 	{
 		BaseCard card = (BaseCard)placingCard.BaseCard.Duplicate();
-		card.SetCardType(placingCard.BaseCard.CardType);
-		card.SetCardEffect(placingCard.BaseCard.CardEffect);
+		card.SetCard(placingCard.BaseCard.Card);
 		DeskCard deskCard = this.CreateDeskCard(placingCard.MapPosition.X, placingCard.MapPosition.Y, card);
 		deskCard.Orientation = placingCard.Orientation;
 

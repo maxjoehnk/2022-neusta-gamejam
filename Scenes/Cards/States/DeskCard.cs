@@ -77,7 +77,7 @@ public partial class DeskCard : Node3D
 		this.AddChild(card);
 		this.BaseCard = card;
 		this.UpdateDescription();
-		this.cardEffectMarker = card.CardEffect?.CreateMarker();
+		this.cardEffectMarker = card.Card.Effect?.CreateMarker();
 		if (this.cardEffectMarker != null)
 		{
 			this.AddChild(this.cardEffectMarker);
@@ -113,6 +113,6 @@ public partial class DeskCard : Node3D
 
 	private void UpdateDescription()
 	{
-		this.EditorDescription = $"Card ({BaseCard.CardType}, {BaseCard.CardEffect})";
+		this.EditorDescription = $"Card ({BaseCard.Card.Type}, {BaseCard.Card.Effect})";
 	}
 }

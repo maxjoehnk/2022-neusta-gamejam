@@ -7,7 +7,7 @@ public record Turn
     public int CardsAvailable { get; set; }
     public int CardsLeft { get; set; }
 
-    public int MovementLeft { get; set; }
+    public int? MovementLeft { get; set; }
 
     public void ModifyAvailableCards(int cards)
     {

@@ -2,60 +2,34 @@ using System;
 
 using Godot;
 
-public partial class BaseCard : Node3D
+public partial class BaseCard : Node3D, ICard
 {
-	private MeshInstance3D Mesh => GetNode<MeshInstance3D>("Mesh");
+	private readonly CardOverlay cardOverlay;
+	
+	public MeshInstance3D Mesh => GetNode<MeshInstance3D>("Mesh");
 	
 	public Card Card { get; private set; }
 
-	public ICardType CardType
-	{
-		get => Card.CardType;
-		private set => this.Card.CardType = value;
-	}
-
-	public ICardEffect CardEffect
-	{
-		get => Card.CardEffect;
-		private set => this.Card.CardEffect = value;
-	}
-
-	private Doors Doors => CardEffect?.ModifyDoors(this.CardType.doors) ?? this.CardType.doors;
-
-	private StandardMaterial3D CardTypeMaterial
-	{
-		get => (StandardMaterial3D)this.Mesh.MaterialOverlay;
-		set => this.Mesh.MaterialOverlay = value;
-	}
-
-	private StandardMaterial3D CardEffectMaterial
-	{
-		get => (StandardMaterial3D)this.CardTypeMaterial.NextPass;
-		set => this.CardTypeMaterial.NextPass = value;
-	}
-
-	private StandardMaterial3D CardDecalMaterial
-	{
-		get => (StandardMaterial3D)this.CardEffectMaterial.NextPass;
-		set => this.CardEffectMaterial.NextPass = value;
-	}
+	private Doors Doors => Card.Effect?.ModifyDoors(this.Card.Type.doors) ?? this.Card.Type.doors;
 
 	public BaseCard()
 	{
 		this.Card = new Card();
+		this.cardOverlay = new CardOverlay(this);
 	}
 
 	public override void _Ready()
 	{
-		this.ApplyTypeTexture();
-		this.ApplyDecalTexture();
-		this.ApplyEffectTexture();
-		this.CardEffect?.Ready(this);
+		this.cardOverlay.ApplyTypeTexture();
+		this.cardOverlay.ApplyDecalTexture();
+		this.cardOverlay.ApplyEffectTexture();
+		this.cardOverlay.ApplyModifierTexture();
+		this.Card.Effect?.Ready(this);
 	}
 
 	public override void _Process(double delta)
 	{
-		this.CardEffect?.Process(this, delta);
+		this.Card.Effect?.Process(this, delta);
 	}
 
 	/// <summary>
@@ -73,51 +47,22 @@ public partial class BaseCard : Node3D
 		};
 	}
 
-	public CardResult OnEnter(GameState gameState)
+	public CardResult OnEnter(GameState gameState, Direction direction)
 	{
-		return this.CardEffect?.OnEnter(gameState);
+		CardResult cardResult = new CardResult();
+
+		CardResult effectResult = this.Card.Effect?.OnEnter(gameState, direction);
+		CardResult modifierResult = this.Card.Modifier?.OnEnter(gameState, direction);
+
+		return cardResult.Join(effectResult).Join(modifierResult);
 	}
 
 	public void SetCard(Card card)
 	{
 		this.Card = card;
-		this.ApplyTypeTexture();
-		this.ApplyDecalTexture();
-		this.ApplyEffectTexture();
+		this.cardOverlay.ApplyTypeTexture();
+		this.cardOverlay.ApplyDecalTexture();
+		this.cardOverlay.ApplyEffectTexture();
+		this.cardOverlay.ApplyModifierTexture();
 	}
-	
-	public void SetCardType(ICardType cardType)
-	{
-		this.CardType = cardType;
-		this.ApplyTypeTexture();
-		this.ApplyDecalTexture();
-	}
-
-	public void SetCardEffect(ICardEffect cardEffect)
-	{
-		this.CardEffect = cardEffect;
-		ApplyEffectTexture();
-	}
-
-	private void ApplyEffectTexture()
-	{
-		StandardMaterial3D material = (StandardMaterial3D)this.CardEffectMaterial.Duplicate(true);
-		material.AlbedoTexture = this.CardEffect?.Texture;
-		this.CardEffectMaterial = material;
-	}
-
-	private void ApplyDecalTexture()
-	{
-		StandardMaterial3D material = (StandardMaterial3D)this.CardDecalMaterial.Duplicate(true);
-		material.AlbedoTexture = this.CardType?.DecalTexture;
-		this.CardDecalMaterial = material;
-	}
-
-	private void ApplyTypeTexture()
-	{
-		StandardMaterial3D material = (StandardMaterial3D)this.CardTypeMaterial.Duplicate(true);
-		material.AlbedoTexture = this.CardType?.Texture;
-		this.CardTypeMaterial = material;
-	}
-
 }

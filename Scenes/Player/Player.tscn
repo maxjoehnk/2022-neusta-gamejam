@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="2_vdnuq"]
 [ext_resource type="ArrayMesh" uid="uid://drgiuuy3ygdov" path="res://Assets/Models/escooter.obj" id="3_ft4oy"]
 [ext_resource type="ArrayMesh" uid="uid://cqwndgikwus07" path="res://Assets/Models/hat.obj" id="4_0of7j"]
-[ext_resource type="Material" path="res://Resources/Materials/hat.tres" id="5_cj06a"]
+[ext_resource type="Material" uid="uid://bsl3r7po0dlys" path="res://Resources/Materials/hat.tres" id="5_cj06a"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6jpp5"]
 frequency = 1.0
@@ -38,5 +38,6 @@ material_override = SubResource("StandardMaterial3D_tr202")
 mesh = ExtResource("1_p8a4x")
 
 [node name="Hat" type="MeshInstance3D" parent="."]
+visible = false
 mesh = ExtResource("4_0of7j")
 surface_material_override/0 = ExtResource("5_cj06a")

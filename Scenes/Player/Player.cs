@@ -44,20 +44,22 @@ public partial class Player : Node3D
         }
     }
 
-    public void MoveTo(Position position)
+    public Direction MoveTo(Position position)
     {
-        Direction? direction = this.MapPosition.GetDirection(position);
+        Direction direction = this.MapPosition.GetDirection(position);
         this.MapPosition = position;
         this.tween?.Kill();
-        this.tween = this.CreateTween().SetTrans(Tween.TransitionType.Linear);
-        if (direction != null)
+        if (this.tween?.IsRunning() != true)
         {
-            Vector3 rotation = ((Direction)direction).ToRotation();
-            tween.TweenProperty(this, "rotation", rotation, rotationAnimationDuration);
+            this.tween = this.CreateTween().SetTrans(Tween.TransitionType.Linear);
         }
+        Vector3 rotation = direction.ToRotation();
+        tween.TweenProperty(this, "rotation", rotation, rotationAnimationDuration);
 
         Vector3 translation = MapToGlobalPosition();
         this.tween.TweenProperty(this, "position", translation, movementAnimationDuration);
+
+        return direction;
     }
 
     public void JumpTo(Position position)

@@ -12,11 +12,11 @@ public class TeleportEffect : ICardEffect
         return doors;
     }
 
-    public CardResult OnEnter(GameState gameState)
+    public CardResult OnEnter(GameState gameState, Direction direction)
     {
         DeskCard targetCard = gameState.Map.Cards
-            .Where(card => card.BaseCard.CardEffect is TeleportEffect)
-            .FirstOrDefault(card => card.BaseCard.CardEffect != this);
+            .Where(card => card.BaseCard.Card.Effect is TeleportEffect)
+            .FirstOrDefault(card => card.BaseCard.Card.Effect != this);
 
         if (targetCard != null)
         {

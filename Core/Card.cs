@@ -1,6 +1,8 @@
 public class Card
 {
-    public ICardType CardType { get; set; }
+    public ICardType Type { get; set; }
 
-    public ICardEffect CardEffect { get; set; }
+    public ICardEffect Effect { get; set; }
+    
+    public ICardModifier Modifier { get; set; }
 };

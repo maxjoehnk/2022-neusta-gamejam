@@ -244,6 +244,10 @@ public partial class Game : Node3D
 
     private void PlayerMovement()
     {
+        if (this.gameState.Turn.MovementLeft <= 0)
+        {
+            return;
+        }
         Position position = this.gameState.ActivePlayer.MapPosition.Duplicate();
         if (Input.IsActionJustPressed("left"))
         {
@@ -275,16 +279,24 @@ public partial class Game : Node3D
             return;
         }
 
-        this.gameState.ActivePlayer.MoveTo(position);
+        Direction direction = this.gameState.ActivePlayer.MoveTo(position);
         BaseCard card = this.gameState.Map.GetCard(position);
-        CardResult cardResult = card.OnEnter(this.gameState);
+        CardResult cardResult = card.OnEnter(this.gameState, direction);
         if (cardResult?.EndTurn == true)
         {
             this.NextTurn();
         }
 
         this.gameState.Turn.ModifyAvailableCards(cardResult?.ModifyCardsRemaining ?? 0);
+        if (cardResult?.RemainingMoves != null)
+        {
+            this.gameState.Turn.MovementLeft = cardResult.RemainingMoves;
+        }
         this.UiRoot.UpdateAvailableCards();
+        if (this.gameState.Turn.MovementLeft != null)
+        {
+            this.gameState.Turn.MovementLeft -= 1;
+        }
     }
 
     private void NextTurn()
@@ -300,6 +312,7 @@ public partial class Game : Node3D
         this.HandCards.Player = this.gameState.ActivePlayer;
         this.gameState.Turn.CardsAvailable = 1;
         this.gameState.Turn.CardsLeft = 1;
+        this.gameState.Turn.MovementLeft = null;
         this.UpdateActivePlayer();
         this.UiRoot.Update();
     }

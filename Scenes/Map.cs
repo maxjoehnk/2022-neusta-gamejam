@@ -56,7 +56,7 @@ public class Map
 		bool canEnterFrom = this.cards[to.X][to.Y].HasDoor(enter);
 		Side leave = ((Direction)direction).Leave();
 		bool canLeaveTo = this.cards[from.X][from.Y].HasDoor(leave);
-		GD.Print($"{direction}\n {enter} {cards[to.X][to.Y].BaseCard.CardType} {canEnterFrom}\n {leave} {cards[from.X][from.Y].BaseCard.CardType} {canLeaveTo}");
+		GD.Print($"{direction}\n {enter} {cards[to.X][to.Y].BaseCard.Card.Type} {canEnterFrom}\n {leave} {cards[from.X][from.Y].BaseCard.Card.Type} {canLeaveTo}");
 		
 		return canEnterFrom && canLeaveTo;
 	}
@@ -153,5 +153,40 @@ public class Map
 	public BaseCard GetCard(Position position)
 	{
 		return this.cards[position.X][position.Y].BaseCard;
+	}
+
+	public Position GetLastCardInDirection(Position position, Direction direction)
+	{
+		List<DeskCard> rowOrColumn = direction.IsVertical()
+			? this.cards[position.X]
+			: this.cards.Select(row => row[position.Y]).ToList();
+		int xOrY = direction.IsVertical() ? position.Y : position.X;
+
+		List<DeskCard> cards = direction is Direction.Left or Direction.Up
+			? rowOrColumn.Take(xOrY + 1).Reverse().ToList()
+			: rowOrColumn.Skip(xOrY).ToList();
+		
+		for (int i = 0; i < cards.Count; i++)
+		{
+			DeskCard startCard = cards[i];
+			DeskCard nextCard = cards[i + 1];
+
+			if (nextCard == null)
+			{
+				return startCard.MapPosition;
+			}
+
+			if (!startCard.HasDoor(direction.Leave()))
+			{
+				return startCard.MapPosition;
+			}
+
+			if (!nextCard.HasDoor(direction.Enter()))
+			{
+				return startCard.MapPosition;
+			}
+		}
+
+		return position;
 	}
 }
