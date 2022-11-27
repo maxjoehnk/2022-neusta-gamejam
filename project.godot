@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
-config/name="2022 Neusta Gamejam"
-run/main_scene="res://Scenes/Game.tscn"
-config/features=PackedStringArray("4.0", "C#", "Forward Plus")
+config/name="Stoink!"
+config/description="Bright Heads and Heavy Stones"
+run/main_scene="res://Scenes/UI/Screens/TitleScreen.tscn"
+config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]

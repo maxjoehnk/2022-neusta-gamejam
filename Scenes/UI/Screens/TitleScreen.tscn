@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr36tse5t7ucw"]
+
+[ext_resource type="Texture2D" uid="uid://dosw4p3jobctx" path="res://Assets/Logo.jpg" id="1_jd824"]
+[ext_resource type="Script" path="res://Scenes/UI/Screens/TitleScreen.cs" id="1_xpqg2"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xpqg2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(256, 256)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("1_jd824")
+ignore_texture_size = true
+
+[node name="Buttons" type="HFlowContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -248.0
+offset_right = 48.0
+offset_bottom = -182.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Start" type="Button" parent="Buttons"]
+offset_right = 96.0
+offset_bottom = 31.0
+text = "Start Game"
+
+[node name="Exit" type="Button" parent="Buttons"]
+offset_left = 29.0
+offset_top = 35.0
+offset_right = 66.0
+offset_bottom = 66.0
+text = "Exit"
