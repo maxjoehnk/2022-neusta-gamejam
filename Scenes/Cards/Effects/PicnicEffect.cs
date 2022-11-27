@@ -20,6 +20,7 @@ public class PicnicEffect : ICardEffect
         {
             return new CardResult();
         }
+        this.players.Add(gameState.ActivePlayer);
         return new CardResult
         {
             ModifyCardsRemaining = 1
