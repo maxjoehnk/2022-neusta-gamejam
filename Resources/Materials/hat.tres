@@ -1,3 +1,7 @@
-[gd_resource type="ShaderMaterial" format=3 uid="uid://ca4yqf8qo5qbq"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bsl3r7po0dlys"]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/hat.tres" id="1_ha50k"]
 
 [resource]
+render_priority = 0
+shader = ExtResource("1_ha50k")

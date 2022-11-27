@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://dr725lww420am"]
+[gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://cpxbtuvycfxxn"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7pkrm"]
 noise_type = 3
