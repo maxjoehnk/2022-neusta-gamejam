@@ -128,7 +128,7 @@ public partial class Game : Node3D
 
         DeskCard deskCard = this.cardFactory.FromHand(this.placingCard);
         this.CardsRoot.AddChild(deskCard);
-        this.gameState.Map.PushCard(this.placingCard, deskCard);
+        this.gameState.Map.PushCard(this.placingCard, deskCard, this.gameState.Players, this.CreateTween());
         this.gameState.ActivePlayer.ReplaceCard(this.placingCard.BaseCard.Card, this.cardFactory.CreateCard());
         this.placingCard.QueueFree();
         this.placingCard = null;

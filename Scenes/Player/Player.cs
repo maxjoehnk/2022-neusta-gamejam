@@ -62,6 +62,14 @@ public partial class Player : Node3D
         return direction;
     }
 
+    public void MoveTogether(Position position, Tween movementTween, double duration)
+    {
+        this.MapPosition = position;
+
+        Vector3 translation = MapToGlobalPosition();
+        movementTween.TweenProperty(this, "position", translation, duration);
+    }
+
     public void JumpTo(Position position)
     {
         this.MapPosition = position;

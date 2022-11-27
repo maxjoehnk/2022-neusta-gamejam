@@ -61,14 +61,14 @@ public class Map
 		return canEnterFrom && canLeaveTo;
 	}
 
-	public void PushCard(PlacingCard placingCard, DeskCard deskCard)
+	public void PushCard(PlacingCard placingCard, DeskCard deskCard, List<Player> players, Tween movementTween)
 	{
 		Position placement = new Position
 		{
 			X = Math.Clamp(placingCard.MapPosition.X, 0, this.maxX),
 			Y = Math.Clamp(placingCard.MapPosition.Y, 0, this.maxY),
 		};
-		deskCard.MoveTo(placement);
+		deskCard.MoveTo(placement, movementTween);
 		Direction direction = GetPushInDirection(placement);
 		if (direction.IsVertical())
 		{
@@ -79,7 +79,12 @@ public class Map
 			{
 				DeskCard card = this.cards[x][y];
 				int targetY = y + modifier;
-				card.MoveTo(x, targetY);
+				Position target = new Position(x, targetY);
+				foreach (Player player in players.Where(p => p.MapPosition == card.MapPosition))
+				{
+					player.MoveTogether(target, movementTween.Parallel(), 0.1);
+				}
+				card.MoveTo(target, movementTween.Parallel());
 				if (targetY < 0 || targetY > maxY)
 				{
 					card.Despawn();
@@ -99,7 +104,12 @@ public class Map
 			{
 				DeskCard card = this.cards[x][y];
 				int targetX = x + modifier;
-				card.MoveTo(targetX, y);
+				Position target = new Position(targetX, y);
+				foreach (Player player in players.Where(p => p.MapPosition == card.MapPosition))
+				{
+					player.MoveTogether(target, movementTween.Parallel(), 0.1);
+				}
+				card.MoveTo(target, movementTween.Parallel());
 				if (targetX < 0 || targetX > maxX)
 				{
 					card.Despawn();

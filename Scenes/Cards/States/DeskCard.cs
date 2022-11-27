@@ -28,20 +28,14 @@ public partial class DeskCard : Node3D
 		ApplyPosition();
 	}
 
-	public void MoveTo(int x, int y)
-	{
-		this.MoveTo(new Position(x, y));
-	}
-
-	public void MoveTo(Position targetPosition)
+	public void MoveTo(Position targetPosition, Tween tween)
 	{
 		GD.Print($"Move from {MapPosition} to {targetPosition}");
 		this.MapPosition = targetPosition;
 		UpdateMetadataPosition();
 		Vector3 position = MapPositionToGlobalPosition();
-		Tween tween = this.CreateTween();
-		tween.TweenProperty(this, "position", position, MoveAnimationDuration);
-		tween.TweenCallback(new Callable(this, nameof(Exit)));
+		PropertyTweener tweener = tween.TweenProperty(this, "position", position, this.MoveAnimationDuration);
+		tweener.Finished += this.Exit;
 	}
 
 	private void ApplyPosition()
