@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dp7y273iueep8"]
+[gd_scene load_steps=8 format=3 uid="uid://dp7y273iueep8"]
 
 [ext_resource type="Script" path="res://Scenes/Cards/BaseCard.cs" id="1_73y3u"]
 [ext_resource type="Material" uid="uid://dtkftcwwdxqs7" path="res://Scenes/Cards/CardOverlay.tres" id="2_so6ri"]
 [ext_resource type="ArrayMesh" uid="uid://dxjuvdny7w8jp" path="res://Assets/Models/stone.obj" id="3_31o8q"]
 [ext_resource type="Texture2D" uid="uid://w0lx8cd4xikg" path="res://Assets/Models/stone.png" id="4_fsp6a"]
-[ext_resource type="PackedScene" uid="uid://dhodky8dcfb6k" path="res://Scenes/Cards/Effects/Coin.tscn" id="5_cntau"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4rwyc"]
 
@@ -53,7 +52,3 @@ transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.7422
 text = "Bottom
 "
 font_size = 300
-
-[node name="Coin" parent="." instance=ExtResource("5_cntau")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.01853, 0)
-visible = false

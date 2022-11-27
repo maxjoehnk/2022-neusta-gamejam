@@ -4,7 +4,7 @@ using Godot;
 
 public partial class BaseCard : Node3D
 {
-	protected MeshInstance3D Mesh => GetNode<MeshInstance3D>("Mesh");
+	private MeshInstance3D Mesh => GetNode<MeshInstance3D>("Mesh");
 	
 	public Card Card { get; private set; }
 

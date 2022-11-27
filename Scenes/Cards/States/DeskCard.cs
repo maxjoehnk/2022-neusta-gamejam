@@ -5,7 +5,8 @@ public partial class DeskCard : Node3D
 	[Export] private double MoveAnimationDuration = 0.1;
 	
 	private bool despawn;
-	
+	private Node3D cardEffectMarker;
+
 	public BaseCard BaseCard { get; private set; }
 
 	private AudioStreamPlayer3D EnterSound => GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D");
@@ -63,9 +64,19 @@ public partial class DeskCard : Node3D
 
 	public void SetCard(BaseCard card)
 	{
+		if (this.cardEffectMarker != null)
+		{
+			this.RemoveChild(this.cardEffectMarker);
+			this.cardEffectMarker.QueueFree();
+		}
 		this.AddChild(card);
 		this.BaseCard = card;
 		this.UpdateDescription();
+		this.cardEffectMarker = card.CardEffect?.CreateMarker();
+		if (this.cardEffectMarker != null)
+		{
+			this.AddChild(this.cardEffectMarker);
+		}
 	}
 
 	public bool HasDoor(Side side)

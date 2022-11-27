@@ -13,4 +13,9 @@ public interface ICardEffect
     }
 
     public void Process(BaseCard card, double delta) {}
+
+    public Node3D CreateMarker()
+    {
+        return null;
+    }
 }

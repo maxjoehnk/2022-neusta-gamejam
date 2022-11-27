@@ -2,9 +2,12 @@ using Godot;
 
 public class CoinEffect : ICardEffect
 {
-    private bool hasCoin = true;
+    private readonly PackedScene coinMarkerScene = ResourceLoader.Load<PackedScene>("res://Scenes/Cards/Effects/Coin.tscn");
     
-	public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardEffects/portal.jpg");
+    private bool hasCoin = true;
+    private Node3D coinMarker;
+
+    public Texture2D Texture => ResourceLoader.Load<CompressedTexture2D>("res://Assets/Textures/CardEffects/coin.png");
     
     public Doors ModifyDoors(Doors doors)
     {
@@ -29,20 +32,27 @@ public class CoinEffect : ICardEffect
 
     public void Ready(BaseCard card)
     {
-        card.GetNode<AnimationPlayer>("Coin/AnimationPlayer").Play("Rotate");
     }
 
     public void Process(BaseCard card, double delta)
     {
-        Node3D coin = card.GetNode<Node3D>("Coin");
         if (this.hasCoin)
         {
-            coin.Show();
+            this.coinMarker?.Show();
         }
         else
         {
-            coin.Hide();
+            this.coinMarker?.Hide();
         }
+    }
+
+    public Node3D CreateMarker()
+    {
+        Node3D coinMarker = this.coinMarkerScene.Instantiate<Node3D>();
+        coinMarker.GetNode<AnimationPlayer>("AnimationPlayer").Autoplay = "Rotate";
+        this.coinMarker = coinMarker;
+        
+        return coinMarker;
     }
 }
 
