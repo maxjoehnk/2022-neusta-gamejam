@@ -20,7 +20,6 @@ public class CardFactory
 	private readonly List<ICardEffectFactory> cardEffectFactories = new List<ICardEffectFactory>
 	{
 		new TeleportEffectFactory(),
-		new CoinEffectFactory(),
 	};
 
 	private readonly Random random = new Random();

@@ -1,0 +1,12 @@
+[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://duh01n646gni0"]
+
+[ext_resource type="Gradient" uid="uid://bmhand7fqp078" path="res://Scenes/Player/roundgradient.tres" id="1_is21v"]
+
+[resource]
+gradient = ExtResource("1_is21v")
+width = 250
+height = 250
+fill = 1
+fill_from = Vector2(0.478632, 0.5)
+fill_to = Vector2(0.713675, 0.286325)
+repeat = 1

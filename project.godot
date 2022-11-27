@@ -76,7 +76,3 @@ place={
 3d_physics/layer_1="Ground"
 3d_physics/layer_2="Card"
 3d_physics/layer_3="Character"
-
-[rendering]
-
-driver/threads/thread_model=2

@@ -65,7 +65,7 @@ public partial class DeskCard : Node3D
 	{
 		this.AddChild(card);
 		this.Card = card;
-		this.UpdateDescription();
+		this.EditorDescription = card.GetType().Name;
 	}
 
 	public bool HasDoor(Side side)
@@ -93,10 +93,5 @@ public partial class DeskCard : Node3D
 	public void PlayEnterSound()
 	{
 		this.EnterSound.Play();
-	}
-
-	private void UpdateDescription()
-	{
-		this.EditorDescription = $"Card ({Card.CardType}, {Card.CardEffect})";
 	}
 }

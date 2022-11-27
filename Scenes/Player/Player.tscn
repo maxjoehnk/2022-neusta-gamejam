@@ -1,33 +1,27 @@
-[gd_scene load_steps=9 format=3 uid="uid://c5trjhn880tio"]
+[gd_scene load_steps=12 format=3 uid="uid://c5trjhn880tio"]
 
 [ext_resource type="ArrayMesh" uid="uid://c0o7uaol647hj" path="res://Assets/Models/Character.obj" id="1_p8a4x"]
-[ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="2_vdnuq"]
 [ext_resource type="ArrayMesh" uid="uid://drgiuuy3ygdov" path="res://Assets/Models/escooter.obj" id="3_ft4oy"]
+[ext_resource type="Shader" uid="uid://dkjw1gks12f2o" path="res://Scenes/Player/Player.tres" id="3_wtsfq"]
 [ext_resource type="ArrayMesh" uid="uid://ekl02hljmu8i" path="res://Assets/Models/hat.obj" id="4_0of7j"]
+[ext_resource type="Material" uid="uid://hpj7bxvggw0k" path="res://Assets/Models/Hat.tres" id="4_7omwa"]
+[ext_resource type="Shader" uid="uid://doxsumb3hn6l4" path="res://Scenes/Player/wood.tres" id="6_48s65"]
+[ext_resource type="Material" uid="uid://ci6y7seeyqkgm" path="res://Assets/Textures/CardDecals/Portal_glowing.tres" id="7_cahs2"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6jpp5"]
-frequency = 1.0
-fractal_type = 3
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dy10c"]
+render_priority = 0
+shader = ExtResource("3_wtsfq")
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b2o4s"]
-seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_6jpp5")
+[sub_resource type="PlaneMesh" id="PlaneMesh_c0535"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tr202"]
-albedo_color = Color(0.545098, 0, 0.0470588, 1)
-normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_b2o4s")
-ao_enabled = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uw24e"]
+render_priority = 0
+shader = ExtResource("6_48s65")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_728a4"]
-albedo_color = Color(0.6, 0.6, 0.6, 1)
-metallic = 1.0
+[sub_resource type="PlaneMesh" id="PlaneMesh_8xy88"]
 
 [node name="Player" type="Node3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-script = ExtResource("2_vdnuq")
-jumpAnimationDuration = 0.1
 
 [node name="EScooter" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25167, 0)
@@ -37,10 +31,19 @@ skeleton = NodePath("../..")
 
 [node name="Cone" type="MeshInstance3D" parent="."]
 visible = false
-material_override = SubResource("StandardMaterial3D_tr202")
+material_override = SubResource("ShaderMaterial_dy10c")
 mesh = ExtResource("1_p8a4x")
 
 [node name="Hat" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0330503, 0)
 visible = false
+material_override = ExtResource("4_7omwa")
 mesh = ExtResource("4_0of7j")
-surface_material_override/0 = SubResource("StandardMaterial3D_728a4")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_c0535")
+surface_material_override/0 = SubResource("ShaderMaterial_uw24e")
+
+[node name="Portal" type="MeshInstance3D" parent="."]
+material_override = ExtResource("7_cahs2")
+mesh = SubResource("PlaneMesh_8xy88")
