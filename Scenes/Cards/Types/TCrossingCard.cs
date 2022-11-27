@@ -15,7 +15,7 @@ public class TCrossingCard : ICardType
 
 public class TCrossingCardFactory : ICardTypeFactory
 {
-	public int Probability => 1;
+	public int Probability => 2;
 	
 	public ICardType BuildCardType()
 	{

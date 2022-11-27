@@ -15,7 +15,7 @@ public class CornerCard : ICardType
 
 public class CornerCardFactory : ICardTypeFactory
 {
-	public int Probability => 1;
+	public int Probability => 2;
 	
 	public ICardType BuildCardType()
 	{

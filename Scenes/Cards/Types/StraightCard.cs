@@ -14,7 +14,7 @@ public class StraightCard : ICardType
 
 public class StraightCardFactory : ICardTypeFactory
 {
-	public int Probability => 1;
+	public int Probability => 3;
 	
 	public ICardType BuildCardType() {
 		return new StraightCard();
