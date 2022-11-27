@@ -14,8 +14,8 @@ public class TeleportEffect : ICardEffect
     public void OnEnter(Player player, Map map)
     {
         DeskCard targetCard = map.Cards
-            .Where(card => card.Card.CardEffect is TeleportEffect)
-            .FirstOrDefault(card => card.Card.CardEffect != this);
+            .Where(card => card.BaseCard.CardEffect is TeleportEffect)
+            .FirstOrDefault(card => card.BaseCard.CardEffect != this);
 
         if (targetCard != null)
         {

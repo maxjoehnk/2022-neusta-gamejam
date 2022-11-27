@@ -2,12 +2,23 @@ using System;
 
 using Godot;
 
-public partial class Card : Node3D
+public partial class BaseCard : Node3D
 {
-	private MeshInstance3D Mesh => GetNode<MeshInstance3D>("Mesh");
+	protected MeshInstance3D Mesh => GetNode<MeshInstance3D>("Mesh");
 	
-	public ICardType CardType { get; private set; }
-	public ICardEffect CardEffect { get; private set; }
+	public Card Card { get; private set; }
+
+	public ICardType CardType
+	{
+		get => Card.CardType;
+		private set => this.Card.CardType = value;
+	}
+
+	public ICardEffect CardEffect
+	{
+		get => Card.CardEffect;
+		private set => this.Card.CardEffect = value;
+	}
 
 	private Doors Doors => CardEffect?.ModifyDoors(this.CardType.doors) ?? this.CardType.doors;
 
@@ -27,6 +38,11 @@ public partial class Card : Node3D
 	{
 		get => (StandardMaterial3D)this.CardEffectMaterial.NextPass;
 		set => this.CardEffectMaterial.NextPass = value;
+	}
+
+	public BaseCard()
+	{
+		this.Card = new Card();
 	}
 
 	public override void _Ready()
@@ -62,6 +78,14 @@ public partial class Card : Node3D
 		this.CardEffect?.OnEnter(player, map);
 	}
 
+	public void SetCard(Card card)
+	{
+		this.Card = card;
+		this.ApplyTypeTexture();
+		this.ApplyDecalTexture();
+		this.ApplyEffectTexture();
+	}
+	
 	public void SetCardType(ICardType cardType)
 	{
 		this.CardType = cardType;

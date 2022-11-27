@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using Godot;
 
 public partial class Player : Node3D
@@ -8,8 +10,6 @@ public partial class Player : Node3D
     [Export] private double movementAnimationDuration = 0.2;
     [Export] private double jumpAnimationDuration = 0.2;
     [Export] private double jumpToAnimationDelay = 0.5;
-
-    // private StandardMaterial3D Material => (StandardMaterial3D)this.MaterialOverride;
 
     private Node3D Cone => GetNode<Node3D>("Cone");
     private Node3D EScooter => GetNode<Node3D>("EScooter");
@@ -23,6 +23,7 @@ public partial class Player : Node3D
     public Position MapPosition { get; set; }
 
     public Character Character { get; set; }
+    public List<Card> Cards { get; set; }
 
     public override void _Ready()
     {
@@ -97,5 +98,11 @@ public partial class Player : Node3D
     public override string ToString()
     {
         return $"Player {{ Name = {Name}, Position = {MapPosition}, Active = {Active} }}";
+    }
+
+    public void ReplaceCard(Card oldCard, Card newCard)
+    {
+        int cardIndex = this.Cards.FindIndex(c => c == oldCard);
+        this.Cards[cardIndex] = newCard;
     }
 }

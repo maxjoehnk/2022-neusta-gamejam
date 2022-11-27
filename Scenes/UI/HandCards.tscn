@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpv5vkdhhd47c"]
+
+[ext_resource type="Script" path="res://Scenes/UI/HandCards.cs" id="1_5wy6r"]
+[ext_resource type="PackedScene" uid="uid://b2lvway1te0ol" path="res://Scenes/Cards/States/HandCard.tscn" id="1_oxvbl"]
+
+[node name="HandCards" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -0.952704, -0.3039, 0, 0.3039, -0.952704, 0, 0, 0)
+script = ExtResource("1_5wy6r")
+
+[node name="Card1" parent="." instance=ExtResource("1_oxvbl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8379, -0.118457, 0.371362)
+
+[node name="Card2" parent="." instance=ExtResource("1_oxvbl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4067, -0.118457, 0.371362)
+
+[node name="Card3" parent="." instance=ExtResource("1_oxvbl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0535908, -0.118457, 0.371362)
+
+[node name="Card4" parent="." instance=ExtResource("1_oxvbl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6337, -0.118457, 0.371362)
+
+[node name="Card5" parent="." instance=ExtResource("1_oxvbl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.9311, -0.118457, 0.371362)

@@ -8,9 +8,9 @@ public interface ICardEffect
 
     public void OnEnter(Player player, Map map);
 
-    public void Ready(Card card)
+    public void Ready(BaseCard card)
     {
     }
 
-    public void Process(Card card, double delta) {}
+    public void Process(BaseCard card, double delta) {}
 }

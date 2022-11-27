@@ -5,7 +5,7 @@ using Godot;
 
 public class CardFactory
 {
-	private readonly PackedScene cardScene = ResourceLoader.Load<PackedScene>("res://Scenes/Cards/Card.tscn");
+	private readonly PackedScene cardScene = ResourceLoader.Load<PackedScene>("res://Scenes/Cards/BaseCard.tscn");
 	private readonly PackedScene deskCardScene = ResourceLoader.Load<PackedScene>("res://Scenes/Cards/States/DeskCard.tscn");
 	private readonly PackedScene placingCardScene = ResourceLoader.Load<PackedScene>("res://Scenes/Cards/States/PlacingCard.tscn");
 
@@ -27,21 +27,35 @@ public class CardFactory
 
 	public Card CreateCard()
 	{
-		Card card = this.cardScene.Instantiate<Card>();
+		Card card = new Card();
+
 		ICardTypeFactory cardTypeFactory = WeightedRandomizer.Next(this.cardTypeFactories);
 		ICardType cardType = cardTypeFactory.BuildCardType();
-		card.SetCardType(cardType);
+		card.CardType = cardType;
 
 		ICardEffectFactory cardEffectFactory = WeightedRandomizer.Next(this.cardEffectFactories, 100);
 		if (cardEffectFactory != null)
 		{
-			card.SetCardEffect(cardEffectFactory.BuildCardEffect());
+			card.CardEffect = cardEffectFactory.BuildCardEffect();
 		}
 
 		return card;
 	}
 
-	public DeskCard CreateDeskCard(int x, int y, Card card)
+	public BaseCard CreateBaseCard()
+	{
+		return this.CreateBaseCard(this.CreateCard());
+	}
+	
+	public BaseCard CreateBaseCard(Card card)
+	{
+		BaseCard baseCard = this.cardScene.Instantiate<BaseCard>();
+		baseCard.SetCard(card);
+
+		return baseCard;
+	}
+
+	public DeskCard CreateDeskCard(int x, int y, BaseCard card)
 	{
 		DeskCard deskCard = this.deskCardScene.Instantiate<DeskCard>();
 		deskCard.SetCard(card);
@@ -53,16 +67,16 @@ public class CardFactory
 
 	public DeskCard FromHand(PlacingCard placingCard)
 	{
-		Card card = (Card)placingCard.Card.Duplicate();
-		card.SetCardType(placingCard.Card.CardType);
-		card.SetCardEffect(placingCard.Card.CardEffect);
+		BaseCard card = (BaseCard)placingCard.BaseCard.Duplicate();
+		card.SetCardType(placingCard.BaseCard.CardType);
+		card.SetCardEffect(placingCard.BaseCard.CardEffect);
 		DeskCard deskCard = this.CreateDeskCard(placingCard.MapPosition.X, placingCard.MapPosition.Y, card);
 		deskCard.Orientation = placingCard.Orientation;
 
 		return deskCard;
 	}
 
-	public PlacingCard CreatePlacingCard(Card card)
+	public PlacingCard CreatePlacingCard(BaseCard card)
 	{
 		PlacingCard placingCard = this.placingCardScene.Instantiate<PlacingCard>();
 		placingCard.SetCard(card);

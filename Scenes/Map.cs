@@ -48,7 +48,7 @@ public class Map
 		bool canEnterFrom = this.cards[to.X][to.Y].HasDoor(enter);
 		Side leave = ((Direction)direction).Leave();
 		bool canLeaveTo = this.cards[from.X][from.Y].HasDoor(leave);
-		GD.Print($"{direction}\n {enter} {cards[to.X][to.Y].Card.CardType} {canEnterFrom}\n {leave} {cards[from.X][from.Y].Card.CardType} {canLeaveTo}");
+		GD.Print($"{direction}\n {enter} {cards[to.X][to.Y].BaseCard.CardType} {canEnterFrom}\n {leave} {cards[from.X][from.Y].BaseCard.CardType} {canLeaveTo}");
 		
 		return canEnterFrom && canLeaveTo;
 	}
@@ -142,8 +142,8 @@ public class Map
 		};
 	}
 
-	public Card GetCard(Position position)
+	public BaseCard GetCard(Position position)
 	{
-		return this.cards[position.X][position.Y].Card;
+		return this.cards[position.X][position.Y].BaseCard;
 	}
 }

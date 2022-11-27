@@ -20,12 +20,12 @@ public class CoinEffect : ICardEffect
         }
     }
 
-    public void Ready(Card card)
+    public void Ready(BaseCard card)
     {
         card.GetNode<AnimationPlayer>("Coin/AnimationPlayer").Play("Rotate");
     }
 
-    public void Process(Card card, double delta)
+    public void Process(BaseCard card, double delta)
     {
         Node3D coin = card.GetNode<Node3D>("Coin");
         if (this.hasCoin)

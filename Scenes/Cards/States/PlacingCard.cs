@@ -9,7 +9,7 @@ public partial class PlacingCard : Node3D
 	
 	public Position MapPosition { get; set; }
 
-	public Card Card { get; private set; }
+	public BaseCard BaseCard { get; private set; }
 
 	public PlacingCard()
 	{
@@ -49,9 +49,9 @@ public partial class PlacingCard : Node3D
 		tween.TweenProperty(this, "rotation", rotationVector, this.rotationAnimationDuration);
 	}
 
-	public void SetCard(Card card)
+	public void SetCard(BaseCard card)
 	{
 		this.AddChild(card);
-		this.Card = card;
+		this.BaseCard = card;
 	}
 }
