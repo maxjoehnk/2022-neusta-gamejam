@@ -284,7 +284,7 @@ public partial class Game : Node3D
         this.ActivePlayer.MoveTo(position);
         BaseCard card = this.map.GetCard(position);
         CardResult cardResult = card.OnEnter(this.ActivePlayer, this.map);
-        if (cardResult.EndTurn)
+        if (cardResult?.EndTurn == true)
         {
             this.NextTurn();
         }
