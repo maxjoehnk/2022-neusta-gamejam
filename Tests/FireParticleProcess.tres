@@ -1,0 +1,39 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=5 format=3 uid="uid://cwnvwl4uutkv4"]
+
+[ext_resource type="Gradient" uid="uid://dlxff1ngdo8ea" path="res://Tests/Fire.tres" id="1_fpdif"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g084i"]
+gradient = ExtResource("1_fpdif")
+
+[sub_resource type="Curve" id="Curve_vgejm"]
+_data = [Vector2(0.157434, 0), 0.0, 0.0, 0, 0, Vector2(0.244898, 0.209091), 6.62613, 6.62613, 0, 0, Vector2(0.279883, 0.627273), -0.498908, -0.498908, 0, 0, Vector2(0.985423, 0.0090909), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_d7waf"]
+curve = SubResource("Curve_vgejm")
+
+[resource]
+emission_shape = 1
+emission_sphere_radius = 0.4
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 3.48, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 5.0
+angular_velocity_min = 1.0
+angular_velocity_max = 40.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_max = 4.0
+angle_min = 1.0
+angle_max = 360.0
+scale_min = 0.8
+scale_curve = SubResource("CurveTexture_d7waf")
+color_ramp = SubResource("GradientTexture1D_g084i")
+turbulence_enabled = true
+turbulence_noise_strength = 0.0
+turbulence_noise_scale = 0.0
+anim_speed_max = 1.0
+anim_offset_max = 1.0

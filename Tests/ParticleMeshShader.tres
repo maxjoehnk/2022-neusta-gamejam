@@ -1,0 +1,107 @@
+[gd_resource type="VisualShader" load_steps=13 format=3 uid="uid://bhs6peu170ngf"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_7pk6c"]
+input_name = "uv"
+
+[sub_resource type="Curve" id="Curve_u2blb"]
+_data = [Vector2(0, 0.0217319), 0.0, 2.30465, 0, 0, Vector2(1, 0), -4.26757, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3utgv"]
+curve = SubResource("Curve_u2blb")
+
+[sub_resource type="VisualShaderNodeCurveTexture" id="VisualShaderNodeCurveTexture_r8t46"]
+texture = SubResource("CurveTexture_3utgv")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rkrp0"]
+seed = 28
+frequency = 0.001
+fractal_lacunarity = 1.849
+fractal_gain = 0.992
+fractal_weighted_strength = 0.72
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d3apa"]
+seamless = true
+noise = SubResource("FastNoiseLite_rkrp0")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_01y6f"]
+expanded_output_ports = [0]
+texture = SubResource("NoiseTexture2D_d3apa")
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_4564v"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_u13im"]
+constant = Color(1, 0.592667, 0.06, 1)
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_qb8sx"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeIntOp" id="VisualShaderNodeIntOp_3wbh1"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_2l0ci"]
+
+[resource]
+code = "shader_type spatial;
+uniform sampler2D tex_frg_2;
+uniform sampler2D curve_frg_11 : repeat_disable;
+
+
+
+void fragment() {
+// Input:10
+	vec2 n_out10p0 = UV;
+
+
+// Input:7
+	float n_out7p0 = TIME;
+
+
+// VectorOp:9
+	vec3 n_out9p0 = vec3(n_out10p0, 0.0) + vec3(n_out7p0);
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, vec2(n_out9p0.xy));
+
+
+// ColorConstant:4
+	vec4 n_out4p0 = vec4(1.000000, 0.592667, 0.060000, 1.000000);
+
+
+// VectorOp:3
+	vec3 n_out3p0 = vec3(n_out2p0.xyz) * vec3(n_out4p0.xyz);
+
+
+// CurveTexture:11
+	float n_in11p0 = 0.00000;
+	float n_out11p0 = texture(curve_frg_11, vec2(n_in11p0)).r;
+
+
+// Output:0
+	ALPHA = n_out2p0.x;
+	EMISSION = n_out3p0;
+	NORMAL_MAP = vec3(n_out11p0);
+
+
+}
+"
+graph_offset = Vector2(-561.686, -92.4263)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_01y6f")
+nodes/fragment/2/position = Vector2(-560, 180)
+nodes/fragment/3/node = SubResource("VisualShaderNodeVectorOp_4564v")
+nodes/fragment/3/position = Vector2(180, 0)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorConstant_u13im")
+nodes/fragment/4/position = Vector2(80, 160)
+nodes/fragment/7/node = SubResource("VisualShaderNodeInput_qb8sx")
+nodes/fragment/7/position = Vector2(-1060, 80)
+nodes/fragment/8/node = SubResource("VisualShaderNodeIntOp_3wbh1")
+nodes/fragment/8/position = Vector2(-1260, -80)
+nodes/fragment/9/node = SubResource("VisualShaderNodeVectorOp_2l0ci")
+nodes/fragment/9/position = Vector2(-720, 20)
+nodes/fragment/10/node = SubResource("VisualShaderNodeInput_7pk6c")
+nodes/fragment/10/position = Vector2(-1060, 160)
+nodes/fragment/11/node = SubResource("VisualShaderNodeCurveTexture_r8t46")
+nodes/fragment/11/position = Vector2(-260, 460)
+nodes/fragment/connections = PackedInt32Array(4, 0, 3, 1, 3, 0, 0, 5, 2, 0, 0, 1, 10, 0, 9, 0, 7, 0, 9, 1, 9, 0, 2, 0, 2, 0, 3, 0, 11, 0, 0, 9)
