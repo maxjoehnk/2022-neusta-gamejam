@@ -14,20 +14,21 @@ public class CoinEffect : ICardEffect
         return doors;
     }
 
-    public CardResult OnEnter(Player player, Map map)
+    public CardResult OnEnter(GameState gameState)
     {
-        if (this.hasCoin)
+        if (!this.hasCoin)
         {
-            player.Coins += 1;
-            this.hasCoin = false;
-
-            return new CardResult
-            {
-                EndTurn = true
-            };
+            return new CardResult();
         }
 
-        return new CardResult();
+        gameState.ActivePlayer.Coins += 1;
+        this.hasCoin = false;
+
+        return new CardResult
+        {
+            EndTurn = true
+        };
+
     }
 
     public void Ready(BaseCard card)

@@ -12,15 +12,15 @@ public class TeleportEffect : ICardEffect
         return doors;
     }
 
-    public CardResult OnEnter(Player player, Map map)
+    public CardResult OnEnter(GameState gameState)
     {
-        DeskCard targetCard = map.Cards
+        DeskCard targetCard = gameState.Map.Cards
             .Where(card => card.BaseCard.CardEffect is TeleportEffect)
             .FirstOrDefault(card => card.BaseCard.CardEffect != this);
 
         if (targetCard != null)
         {
-            player.JumpTo(targetCard.MapPosition);
+            gameState.ActivePlayer.JumpTo(targetCard.MapPosition);
 
             return new CardResult
             {

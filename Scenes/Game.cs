@@ -29,15 +29,9 @@ public partial class Game : Node3D
     private CardFactory cardFactory;
     private PlayerFactory playerFactory;
 
-    private readonly Map map = new Map();
-    private readonly List<Player> players = new List<Player>();
-
-    private Player ActivePlayer => this.players[this.turn];
-
-    private int turn;
+    private readonly GameState gameState = new GameState();
 
     private PlacingCard placingCard;
-    private int cardsLeft = 0;
 
     public override void _Ready()
     {
@@ -71,7 +65,7 @@ public partial class Game : Node3D
     private void UpdateHandCards()
     {
         Vector3 position = this.InitialCardsPosition;
-        if (this.cardsLeft == 0)
+        if (this.gameState.Turn.CardsLeft == 0)
         {
             position += this.hiddenCardsOffset;
         }else if (this.placingCard != null)
@@ -111,14 +105,14 @@ public partial class Game : Node3D
 
         DeskCard deskCard = this.cardFactory.FromHand(this.placingCard);
         this.CardsRoot.AddChild(deskCard);
-        this.map.PushCard(this.placingCard, deskCard);
-        this.ActivePlayer.ReplaceCard(this.placingCard.BaseCard.Card, this.cardFactory.CreateCard());
+        this.gameState.Map.PushCard(this.placingCard, deskCard);
+        this.gameState.ActivePlayer.ReplaceCard(this.placingCard.BaseCard.Card, this.cardFactory.CreateCard());
         this.placingCard.QueueFree();
         this.placingCard = null;
         this.PlacementIndicator.Hide();
         deskCard.PlayEnterSound();
         this.StoneMovingSound.Play();
-        this.cardsLeft--;
+        this.gameState.Turn.CardsLeft--;
     }
 
     private void RotateCard()
@@ -169,7 +163,7 @@ public partial class Game : Node3D
         int x = (int)Math.Round(position.x / Constants.CardSize);
         int y = (int)Math.Round(position.z / Constants.CardSize);
         Position mapPosition = new Position(x, y);
-        Position boundaryPosition = this.map.OutsideBoundaries(mapPosition);
+        Position boundaryPosition = this.gameState.Map.OutsideBoundaries(mapPosition);
         PlacingCard card = this.placingCard;
         if (card != null)
         {
@@ -191,7 +185,7 @@ public partial class Game : Node3D
             this.RemoveChild(this.placingCard);
         }
 
-        this.turn = 0;
+        this.gameState.Turn = new Turn();
         foreach (Node child in this.CardsRoot.GetChildren())
         {
             this.CardsRoot.RemoveChild(child);
@@ -202,7 +196,7 @@ public partial class Game : Node3D
             this.PlayersRoot.RemoveChild(child);
         }
 
-        this.players.Clear();
+        this.gameState.Players.Clear();
         this.FillCards();
         this.FillPlayers();
         this.SetupTurn();
@@ -223,11 +217,11 @@ public partial class Game : Node3D
         {
             Player player = this.playerFactory.CreatePlayer(i);
             player.Cards = Enumerable.Range(0, 5).Select(_ => this.cardFactory.CreateCard()).ToList();
-            this.players.Add(player);
+            this.gameState.Players.Add(player);
             this.PlayersRoot.AddChild(player);
         }
 
-        this.UiRoot.Players = this.players;
+        this.UiRoot.Players = this.gameState.Players;
     }
 
     private void FillCards()
@@ -245,12 +239,12 @@ public partial class Game : Node3D
             }
         }
 
-        this.map.SetCards(cards);
+        this.gameState.Map.SetCards(cards);
     }
 
     private void PlayerMovement()
     {
-        Position position = this.ActivePlayer.MapPosition.Duplicate();
+        Position position = this.gameState.ActivePlayer.MapPosition.Duplicate();
         if (Input.IsActionJustPressed("left"))
         {
             position.X -= 1;
@@ -271,19 +265,19 @@ public partial class Game : Node3D
             position.Y += 1;
         }
 
-        if (position == this.ActivePlayer.MapPosition)
+        if (position == this.gameState.ActivePlayer.MapPosition)
         {
             return;
         }
 
-        if (!this.map.CanMoveTo(this.ActivePlayer.MapPosition, position))
+        if (!this.gameState.Map.CanMoveTo(this.gameState.ActivePlayer.MapPosition, position))
         {
             return;
         }
 
-        this.ActivePlayer.MoveTo(position);
-        BaseCard card = this.map.GetCard(position);
-        CardResult cardResult = card.OnEnter(this.ActivePlayer, this.map);
+        this.gameState.ActivePlayer.MoveTo(position);
+        BaseCard card = this.gameState.Map.GetCard(position);
+        CardResult cardResult = card.OnEnter(this.gameState);
         if (cardResult?.EndTurn == true)
         {
             this.NextTurn();
@@ -292,11 +286,7 @@ public partial class Game : Node3D
 
     private void NextTurn()
     {
-        this.turn++;
-        if (this.turn >= this.players.Count)
-        {
-            this.turn = 0;
-        }
+        this.gameState.NextTurn();
 
         SetupTurn();
     }
@@ -304,17 +294,17 @@ public partial class Game : Node3D
     private void SetupTurn()
     {
         this.PlacementIndicator.Hide();
-        this.cardsLeft = 1;
-        this.HandCards.Player = this.ActivePlayer;
+        this.HandCards.Player = this.gameState.ActivePlayer;
+        this.gameState.Turn.CardsLeft = 1;
         this.UpdateActivePlayer();
     }
 
     private void UpdateActivePlayer()
     {
-        for (int i = 0; i < this.players.Count; i++)
+        for (int i = 0; i < this.gameState.Players.Count; i++)
         {
-            Player player = this.players[i];
-            player.Active = this.turn == i;
+            Player player = this.gameState.Players[i];
+            player.Active = this.gameState.Turn.PlayerIndex == i;
         }
     }
 }
