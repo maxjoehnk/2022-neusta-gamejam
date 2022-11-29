@@ -57,8 +57,11 @@ public partial class Game : Node3D
             this.Reset();
         }
 
-        this.PlaceCard();
-        this.SelectCard();
+        bool selected = this.SelectCard();
+        if (!selected)
+        {
+            this.PlaceCard();
+        }
         this.RotateCard();
         this.PlayerMovement();
         this.UpdateActivePlayer();
@@ -99,19 +102,21 @@ public partial class Game : Node3D
         this.CreateTween().TweenProperty(this.HandCards, "position", position, 0.1);
     }
 
-    private void SelectCard()
+    private bool SelectCard()
     {
         if (!Input.IsActionJustPressed("select"))
         {
-            return;
+            return false;
         }
 
         Card card = this.HandCards.SelectCard();
         if (card == null)
         {
-            return;
+            return false;
         }
         this.DrawCard(card);
+
+        return true;
     }
 
     private void PlaceCard()
