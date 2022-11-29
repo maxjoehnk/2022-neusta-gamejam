@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dhodky8dcfb6k"]
 
-[ext_resource type="Texture2D" uid="uid://dgyiexdvwgnaj" path="res://Assets/Models/coin.png" id="1_pgxj3"]
+[ext_resource type="Texture2D" uid="uid://bjmsi1k6tjjux" path="res://Assets/Models/coin.jpg" id="1_0j3tu"]
 [ext_resource type="ArrayMesh" uid="uid://bpcob2l1sidvx" path="res://Assets/Models/coin.obj" id="2_60kuo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7jsp"]
-albedo_texture = ExtResource("1_pgxj3")
+albedo_texture = ExtResource("1_0j3tu")
 
 [sub_resource type="Animation" id="Animation_dp1fa"]
 length = 0.001
@@ -57,3 +57,9 @@ reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_qve8l")
 }
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.85098, 0.294118, 1)
+light_size = 0.3
+omni_range = 13.752
+omni_attenuation = 0.34151
