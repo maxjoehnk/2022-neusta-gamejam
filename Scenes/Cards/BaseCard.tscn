@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ba8surwu4k6oc"]
 
 [ext_resource type="Script" path="res://Scenes/Cards/BaseCard.cs" id="1_73y3u"]
-[ext_resource type="Material" uid="uid://dtkftcwwdxqs7" path="res://Resources/Materials/CardOverlay.tres" id="2_so6ri"]
+[ext_resource type="Material" uid="uid://dtkftcwwdxqs7" path="res://Resources/Materials/CardOverlay.tres" id="2_4703p"]
 [ext_resource type="ArrayMesh" uid="uid://dxjuvdny7w8jp" path="res://Assets/Models/stone.obj" id="3_31o8q"]
 [ext_resource type="Texture2D" uid="uid://w0lx8cd4xikg" path="res://Assets/Models/stone.png" id="4_fsp6a"]
 
@@ -25,7 +25,7 @@ script = ExtResource("1_73y3u")
 shape = SubResource("BoxShape3D_rlt6r")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-material_overlay = ExtResource("2_so6ri")
+material_overlay = ExtResource("2_4703p")
 mesh = ExtResource("3_31o8q")
 surface_material_override/0 = SubResource("StandardMaterial3D_1jrwe")
 
