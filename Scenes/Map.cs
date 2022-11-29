@@ -43,18 +43,13 @@ public class Map
 			return false;
 		}
 
-		Direction? direction = from.GetDirection(to);
+		Direction direction = from.GetDirection(to);
 		
 		GD.Print($"{from} => {to}: {direction}");
 
-		if (direction == null)
-		{
-			return false;
-		}
-
-		Side enter = ((Direction)direction).Enter();
+		Side enter = direction.Enter();
 		bool canEnterFrom = this.cards[to.X][to.Y].HasDoor(enter);
-		Side leave = ((Direction)direction).Leave();
+		Side leave = direction.Leave();
 		bool canLeaveTo = this.cards[from.X][from.Y].HasDoor(leave);
 		GD.Print($"{direction}\n {enter} {cards[to.X][to.Y].BaseCard.Card.Type} {canEnterFrom}\n {leave} {cards[from.X][from.Y].BaseCard.Card.Type} {canLeaveTo}");
 		
